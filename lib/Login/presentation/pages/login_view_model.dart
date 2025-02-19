@@ -1,4 +1,4 @@
-import 'package:categorylogin/auth_repository.dart';
+import 'package:categorylogin/Login/data/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class LoginViewModel extends ChangeNotifier {

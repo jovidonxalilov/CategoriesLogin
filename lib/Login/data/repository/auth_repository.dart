@@ -1,6 +1,6 @@
-import 'package:categorylogin/secure_storsge.dart';
+import 'package:categorylogin/Login/data/model/secure_storsge.dart';
 
-import 'core/client.dart';
+import '../../../core/client.dart';
 
 class AuthRepository {
   AuthRepository({required this.client});

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:categorylogin/auth_repository.dart';
 import 'package:categorylogin/category_page_column.dart';
@@ -7,6 +6,8 @@ import 'package:categorylogin/core/client.dart';
 import 'package:categorylogin/login_view_model.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
+
+import 'Signup_view_model.dart';
 
 void main() {
   runApp(Login());
@@ -88,21 +89,36 @@ class CategoryPage extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      width: 80,
-                      height: 30,
+                      width: 180,
+                      height: 41,
                       decoration: BoxDecoration(
-                        color: AppColors.redpinkmain,
+                        color: AppColors.redpink,
                         borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Center(
+                        child: Text("Log In", style: TextStyle(color: AppColors.pink),),
                       ),
                     ),
                   ),
                   SizedBox(height: 15),
-                  Container(
-                    width: 180,
-                    height: 41,
-                    decoration: BoxDecoration(
+                  ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUpPage(),),
+                      );
+                    },
+                    child: Container(
+                      width: 180,
+                      height: 41,
+                      decoration: BoxDecoration(
                         color: AppColors.redpink,
-                        borderRadius: BorderRadius.circular(150)),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Center(
+                        child: Text("Log In", style: TextStyle(color: AppColors.pink),),
+                      ),
+                    ),
                   ),
                 ],
               )

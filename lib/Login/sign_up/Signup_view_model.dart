@@ -1,3 +1,4 @@
+import 'package:categorylogin/Login/sign_up/date_picker.dart';
 import 'package:categorylogin/Login/sign_up/sign_up_view.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 10),
                 SignUpView(title: "+ 123 456 789", page: "Mobile Number"),
                 SizedBox(height: 10),
-                SignUpView(title: "DD / MM /YYY", page: "Date of birth"),
+                DatePickerTextField(title: "wdcwecw"),
                 SizedBox(height: 10),
                 SignUpView(title: "●●●●●●●●", page: "Password"),
                 SizedBox(height: 10),
@@ -94,44 +95,58 @@ class SignUpPage extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) => SimpleDialog(
-                          title: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "Poppins",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Container(
-                                width: 82,
-                                height: 82,
-                                decoration: BoxDecoration(
-                                  color: AppColors.redpink,
-                                  borderRadius: BorderRadius.circular(41),
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    "asset/person.svg",
-                                    width: 30,
-                                    height: 45,
-                                    fit: BoxFit.cover,
+                          title: SizedBox(
+                            width: 250,
+                            height: 286,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Poppins",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              )
-                            ],
+                                Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 9),
+                                Container(
+                                  width: 82,
+                                  height: 82,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.redpink,
+                                    borderRadius: BorderRadius.circular(41),
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      "asset/person.svg",
+                                      width: 30,
+                                      height: 45,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 9),
+                                Text(
+                                  "Lorem ipsum dolor sit\namet pretium cras id dui\npellentesque ornare.\nQuisque malesuada.",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

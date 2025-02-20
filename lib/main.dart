@@ -1,12 +1,12 @@
-import 'package:categorylogin/Login/data/repository/auth_repository.dart';
-import 'package:categorylogin/Login/category_page_column.dart';
-import 'package:categorylogin/Login/category_page_sized_box.dart';
+
 import 'package:categorylogin/core/client.dart';
-import 'package:categorylogin/Login/presentation/pages/login_view_model.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
 
-import 'Login/sign_up/Signup_view_model.dart';
+import 'Login/category_page_column.dart';
+import 'Login/category_page_sized_box.dart';
+import 'Login/data/repository/auth_repository.dart';
+import 'Login/presentation/pages/login_view_model.dart';
 
 void main() {
   runApp(Login());
@@ -72,66 +72,37 @@ class CategoryPage extends StatelessWidget {
               CategoryPageColumn(controller: vm.passwordController),
               SizedBox(height: 90),
               if (vm.hasError)
-                Text(
-                  vm.errorMessage!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
+                Text(vm.errorMessage!, style: TextStyle(color: Theme.of(context).colorScheme.error),),
               Column(
                 children: [
-                  SizedBox(
-                    width: 207,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (vm.formKey.currentState!.validate()) {
-                          if (await vm.login() && context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Urraaaaa malumot keldi"),
-                              ),
-                            );
-                          }
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (vm.formKey.currentState!.validate()) {
+                        if (await vm.login() && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Urraaaaa malumot keldi"),
+                            ),
+                          );
                         }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.redpink,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Log In",
-                          style: TextStyle(
-                            color: AppColors.pink,
-                            fontSize: 20,
-                          ),
-                        ),
+                      }
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: AppColors.redpinkmain,
+                        borderRadius: BorderRadius.circular(40),
                       ),
                     ),
                   ),
                   SizedBox(height: 15),
-                  SizedBox(
-                    width: 207,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpPage(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.redpink),
-                      child: Center(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: AppColors.pink,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
+                  Container(
+                    width: 180,
+                    height: 41,
+                    decoration: BoxDecoration(
+                        color: AppColors.redpink,
+                        borderRadius: BorderRadius.circular(150)),
                   ),
                 ],
               )

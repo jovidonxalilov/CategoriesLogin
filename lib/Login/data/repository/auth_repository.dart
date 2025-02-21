@@ -10,7 +10,6 @@ class AuthRepository {
     final String? token = await client.login(login, password);
 
     if (token != null) {
-      // Eski token va credentiallarni o‘chirib tashlamaymiz, avval yangi tokenni tekshiramiz
       await SecureStorage.saveCredentials(login: login, password: password);
       await SecureStorage.saveToken(token);
       return true;

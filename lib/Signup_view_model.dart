@@ -3,6 +3,7 @@ import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'Login/sign_up/date_picker.dart';
 import 'main.dart';
 
 // void main() {
@@ -50,7 +51,6 @@ class SignUpPage extends StatelessWidget {
                     Login()),
               );
             },
-
           ),
         ),
         title: Text(
@@ -72,7 +72,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 10),
                 SignUpView(title: "+ 123 456 789", page: "Mobile Number"),
                 SizedBox(height: 10),
-                SignUpView(title: "DD / MM /YYY", page: "Date of birth"),
+                DatePickerTextField(title: "Date of birth",),
                 SizedBox(height: 10),
                 SignUpView(title: "●●●●●●●●", page: "Password"),
                 SizedBox(height: 10),

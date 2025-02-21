@@ -3,6 +3,7 @@ import 'package:categorylogin/core/client.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
 
+import 'Categories/ui_model.dart';
 import 'Login/category_page_column.dart';
 import 'Login/category_page_sized_box.dart';
 import 'Login/data/repository/auth_repository.dart';
@@ -78,34 +79,51 @@ class CategoryPage extends StatelessWidget {
                 ),
               Column(
                 children: [
-                  SizedBox(
-                    width: 207,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (vm.formKey.currentState!.validate()) {
-                          if (await vm.login() && context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Urraaaaa malumot keldi"),
+                  Column(
+                    children: [
+                      if (vm.hasError)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                      SizedBox(
+                        width: 207,
+                        height: 45,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (vm.formKey.currentState!.validate()) {
+                              bool isSuccess = await vm.login();
+
+                              if (isSuccess && context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Muvaffaqiyatli login qilindi!"),
+                                  ),
+                                );
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Categories()),
+                                );
+                              } else {
+                                vm.setError("Login yoki parol noto‘g‘ri!");
+                              }
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.redpink,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Log In",
+                              style: TextStyle(
+                                color: AppColors.pink,
                               ),
-                            );
-                          }
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.redpink,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Log In",
-                          style: TextStyle(
-                            color: AppColors.pink,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
+
                   SizedBox(height: 15),
                   SizedBox(
                     width: 207,

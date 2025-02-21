@@ -36,3 +36,34 @@ class SecureStorage {
     await _storage.delete(key: _tokenKey);
   }
 }
+
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+//
+// class SecureStorage {
+//   static final _storage = FlutterSecureStorage();
+//   static const String loginKey = "login", passwordKey = "password", tokenKey = "token";
+//
+//   static Future<void> saveCredentials({required String login, required String password}) async {
+//     await _storage.write(key: loginKey, value: login);
+//     await _storage.write(key: passwordKey, value: password);
+//   }
+//
+//   static Future<Map<String, String>?> getCredentials() async {
+//     final login = await _storage.read(key: loginKey);
+//     final password = await _storage.read(key: passwordKey);
+//     if (login == null || password == null) return null;
+//     return {"login": login, "password": password};
+//   }
+//
+//   static Future<void> saveToken(String token) async {
+//     await _storage.write(key: tokenKey, value: token);
+//   }
+//
+//   static Future<String?> getToken() async {
+//     return await _storage.read(key: tokenKey);
+//   }
+//
+//   static Future<void> deleteAll() async {
+//     await _storage.deleteAll();
+//   }
+// }

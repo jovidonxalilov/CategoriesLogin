@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../core/client.dart';
+import '../main.dart';
 import '../utils.dart';
 import 'data/repository/categories_repository.dart';
 
@@ -66,7 +67,7 @@ class CategoriesPage extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => CategoriesPage(vm: vm)),
+                MaterialPageRoute(builder: (context) => LoginView()),
               );
             },
             child: Center(

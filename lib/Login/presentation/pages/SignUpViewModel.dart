@@ -1,0 +1,54 @@
+import 'package:categorylogin/Login/presentation/pages/sign_up_view_model_simple_dialog.dart';
+import 'package:flutter/material.dart';
+
+import '../../data/repository/auth_repository.dart';
+
+class SignUpViewModel extends ChangeNotifier {
+  SignUpViewModel({required AuthRepository authRepo}) : _authRepo = authRepo;
+
+  final AuthRepository _authRepo;
+  final formKey = GlobalKey<FormState>();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final userNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final numberController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  DateTime? _selectedData;
+
+  DateTime? get selectedData => _selectedData;
+
+  set selectedData(DateTime? value) {
+    _selectedData = value ?? _selectedData;
+    notifyListeners();
+  }
+
+  Future signUp(BuildContext context) async {
+    if (selectedData == null) {
+      print("⚠️ Tug‘ilgan sana kiritilmagan!");
+      return;
+    }
+
+    final result = await _authRepo.signUp(
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      username: userNameController.text,
+      email: emailController.text,
+      phoneNumber: numberController.text,
+      dateBirth: selectedData!,
+      password: passwordController.text,
+    );
+
+    if (formKey.currentState!.validate()) {
+      if (result && context.mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) => SignUpViewModelSimpleDialog(),
+        );
+        await Future.delayed(Duration(seconds: 4));
+      }
+    }
+  }
+}

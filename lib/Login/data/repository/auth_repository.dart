@@ -1,20 +1,48 @@
+import 'package:categorylogin/Login/data/model/SignUpModel.dart';
+
 import '../../../core/client.dart';
-import '../model/secure_storsge.dart';
+import '../../../core/secure_storsge.dart';
 
 class AuthRepository {
   AuthRepository({required this.client});
 
   final ApiClient client;
+  String? jwt;
 
-  Future<bool> login(String login, String password) async {
+  Future<void> login(String login, String password) async {
     final String? token = await client.login(login, password);
+    await SecureStorage.deleteToken();
+    await SecureStorage.deleteCredentials();
+    await SecureStorage.saveCredentials(login: login, password: password);
+    await SecureStorage.saveToken(token!);
+  }
 
-    if (token != null) {
-      await SecureStorage.saveCredentials(login: login, password: password);
-      await SecureStorage.saveToken(token);
-      return true;
-    }
-    return false;
+  Future<void> logout() async {
+    await SecureStorage.deleteToken();
+    await SecureStorage.deleteCredentials();
+  }
+
+  Future<bool> signUp({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String email,
+    required String phoneNumber,
+    required DateTime dateBirth,
+    required String password,
+  }) async {
+    final result = await client.signUp(
+      SignUpModel(
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        phoneNumber: phoneNumber,
+        password: password,
+        dateBirth: dateBirth,
+      ),
+    );
+    return result;
   }
 
   Future<bool> retryLogin() async {
@@ -22,7 +50,8 @@ class AuthRepository {
 
     if (credentials == null) return false;
 
-    final String? newToken = await client.login(credentials['login']!, credentials['password']!);
+    final String? newToken =
+        await client.login(credentials['login']!, credentials['password']!);
 
     if (newToken != null) {
       await SecureStorage.saveToken(newToken);

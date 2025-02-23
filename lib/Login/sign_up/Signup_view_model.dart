@@ -1,34 +1,44 @@
+import 'package:categorylogin/Login/data/repository/auth_repository.dart';
+import 'package:categorylogin/Login/presentation/pages/SignUpViewModel.dart';
 import 'package:categorylogin/Login/sign_up/date_picker.dart';
+import 'package:categorylogin/Login/sign_up/sign_up_page_dialog.dart';
 import 'package:categorylogin/Login/sign_up/sign_up_view.dart';
+import 'package:categorylogin/core/client.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../main.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: SignUpPage(
-//         title: "fguuf",
-//         page: "uyhgufv",
-//       ),
-//     );
-//   }
-// }
+void main() {
+  runApp(SignUp());
+}
+
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SignUpPage(
+        vm: SignUpViewModel(
+          authRepo: AuthRepository(
+            client: ApiClient(),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({
     super.key,
+    required this.vm,
   });
+
+  final SignUpViewModel vm;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +58,7 @@ class SignUpPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Login(),
+                  builder: (context) => LoginView(),
                 ),
               );
             },
@@ -67,17 +77,58 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SignUpView(title: "John Doe", page: "Full name"),
+                SignUpView(
+                  title: "First Name",
+                  hintText: "Jovidon Xalilov",
+                  validator: (value) => null,
+                  controller: vm.firstNameController,
+                ),
                 SizedBox(height: 10),
-                SignUpView(title: "example@example.com", page: "Email"),
+                SignUpView(
+                  title: "Last Name",
+                  hintText: "Xalilov",
+                  validator: (value) => null,
+                  controller: vm.lastNameController,
+                ),
+                SignUpView(
+                  title: "UserName",
+                  hintText: "jovidon777",
+                  validator: (value) => null,
+                  controller: vm.userNameController,
+                ),
                 SizedBox(height: 10),
-                SignUpView(title: "+ 123 456 789", page: "Mobile Number"),
+                SignUpView(
+                  title: "Email",
+                  hintText: "xalilovjovidon777@gmail.com",
+                  validator: (value) => null,
+                  controller: vm.emailController,
+                ),
                 SizedBox(height: 10),
-                DatePickerTextField(title: "wdcwecw"),
+                SignUpView(title: "Phone Number",
+                  hintText: "+998337276008",
+                  validator: (value) => null,
+                  controller: vm.numberController,),
                 SizedBox(height: 10),
-                SignUpView(title: "●●●●●●●●", page: "Password"),
+                DatePickerTextField(title: "sana", vm: vm),
                 SizedBox(height: 10),
-                SignUpView(title: "●●●●●●●●", page: "Confirm Password"),
+                SignUpView(
+                  title: "Password",
+                  hintText: "●●●●●●●●",
+                  validator: (value) => null,
+                  controller: vm.passwordController,
+                ),
+                SizedBox(height: 10),
+                SignUpView(
+                  controller: vm.confirmPasswordController,
+                  title: "Password",
+                  hintText: "●●●●●●●●",
+                  validator: (value) {
+                    if (vm.passwordController.text != vm.confirmPasswordController.text) {
+                      return "Passwords do not match!";
+                    }
+                    return null;
+                  },
+                ),
                 SizedBox(height: 25),
                 Text(
                   "By continuing, you agree to\nTerms of Use and Privacy Policy.",
@@ -91,69 +142,11 @@ class SignUpPage extends StatelessWidget {
                   width: 194,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => SimpleDialog(
-                          title: SizedBox(
-                            width: 250,
-                            height: 286,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Poppins",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 9),
-                                Container(
-                                  width: 82,
-                                  height: 82,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.redpink,
-                                    borderRadius: BorderRadius.circular(41),
-                                  ),
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                      "asset/person.svg",
-                                      width: 30,
-                                      height: 45,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 9),
-                                Text(
-                                  "Lorem ipsum dolor sit\namet pretium cras id dui\npellentesque ornare.\nQuisque malesuada.",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                    onPressed: () async {
+                      vm.signUp(context);
                     },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.redpinkmain),
-                    child: Center(
+                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.redpinkmain),
+                    child: const Center(
                       child: Text(
                         "Sign Up",
                         style: TextStyle(

@@ -35,6 +35,8 @@ class SecureStorage {
   static Future<void> deleteToken() async {
     await _storage.delete(key: _tokenKey);
   }
+
+
 }
 
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';

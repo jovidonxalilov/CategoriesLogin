@@ -1,4 +1,6 @@
-import 'package:categorylogin/Login/data/model/SignUpModel.dart';
+import 'dart:io';
+
+import 'package:categorylogin/sign_up/data/model/SignUpModel.dart';
 import 'package:dio/dio.dart';
 
 import 'secure_storsge.dart';
@@ -45,7 +47,6 @@ class ApiClient {
     }
   }
 
-
   Future<Response> fetchCategories() async {
     String? token = await SecureStorage.getToken();
     if (token == null) return fetchCategories();
@@ -60,6 +61,27 @@ class ApiClient {
         return fetchCategories();
       }
       throw e;
+    }
+  }
+
+  Future uploadProfilePhoto(File file) async {
+    FormData formData = FormData.fromMap(
+      {
+        "profilePhoto": await MultipartFile.fromFile(file.path,
+            filename: file.path.split('/').last),
+      },
+    );
+    var response = await dio.post(
+      'auth/upload',
+      data: formData,
+      options: Options(
+        headers: {"Content - Type": "Multipart/form-data"},
+      ),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 // Future<List<dynamic>> fetchCategories() async {

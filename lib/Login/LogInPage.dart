@@ -1,11 +1,11 @@
-import 'package:categorylogin/Login/presentation/pages/login_view_model.dart';
-import 'package:categorylogin/Login/sign_up/Signup_view_model.dart';
+import 'package:categorylogin/Login/presentation/pages/view/login_view_model.dart';
 import 'package:flutter/material.dart';
 
 import '../Categories/ui_model.dart';
+import '../sign_up/presentation/SignUpPage.dart';
 import '../utils.dart';
-import 'category_page_column.dart';
-import 'category_page_sized_box.dart';
+import 'presentation/pages/widget/LogInPassword.dart';
+import 'presentation/pages/widget/LogInEmail.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({

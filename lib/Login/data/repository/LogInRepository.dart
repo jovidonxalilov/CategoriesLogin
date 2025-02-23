@@ -1,4 +1,4 @@
-import 'package:categorylogin/Login/data/model/SignUpModel.dart';
+import 'package:categorylogin/sign_up/data/model/SignUpModel.dart';
 
 import '../../../core/client.dart';
 import '../../../core/secure_storsge.dart';
@@ -22,28 +22,6 @@ class AuthRepository {
     await SecureStorage.deleteCredentials();
   }
 
-  Future<bool> signUp({
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String email,
-    required String phoneNumber,
-    required DateTime dateBirth,
-    required String password,
-  }) async {
-    final result = await client.signUp(
-      SignUpModel(
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        email: email,
-        phoneNumber: phoneNumber,
-        password: password,
-        dateBirth: dateBirth,
-      ),
-    );
-    return result;
-  }
 
   Future<bool> retryLogin() async {
     final credentials = await SecureStorage.getCredentials();
@@ -59,4 +37,6 @@ class AuthRepository {
     }
     return false;
   }
+
+  signUp({required String firstName, required String lastName, required String username, required String email, required String phoneNumber, required DateTime dateBirth, required String password}) {}
 }

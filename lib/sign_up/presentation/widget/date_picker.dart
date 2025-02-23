@@ -1,10 +1,11 @@
-import 'package:categorylogin/Login/data/repository/auth_repository.dart';
+import 'package:categorylogin/Login/data/repository/LogInRepository.dart';
 import 'package:categorylogin/core/client.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../utils.dart';
-import '../presentation/pages/SignUpViewModel.dart';
+import '../../../../utils.dart';
+import '../../data/repository/SignUpRepository.dart';
+import '../view/SignUpViewModel.dart';
 
 class DatePicker extends StatelessWidget {
   const DatePicker({super.key});
@@ -15,7 +16,7 @@ class DatePicker extends StatelessWidget {
       home: DatePickerTextField(
         title: "salom",
         vm: SignUpViewModel(
-          authRepo: AuthRepository(
+          authRepo: SignUpRepository(
             client: ApiClient(),
           ),
         ),
@@ -69,7 +70,6 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
         _dateController.text = formattedDate;
       });
 
-      // ViewModel orqali tanlangan sanani saqlash
       widget.vm.selectedData = pickedDate;
     }
   }

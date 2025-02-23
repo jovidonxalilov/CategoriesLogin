@@ -1,9 +1,9 @@
 import 'package:categorylogin/core/client.dart';
 import 'package:flutter/material.dart';
 
-import 'Login/data/repository/auth_repository.dart';
-import 'Login/login_view.dart';
-import 'Login/presentation/pages/login_view_model.dart';
+import 'Login/data/repository/LogInRepository.dart';
+import 'Login/LogInPage.dart';
+import 'Login/presentation/pages/view/login_view_model.dart';
 
 void main() {
   runApp(LoginView());

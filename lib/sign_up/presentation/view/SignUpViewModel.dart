@@ -1,12 +1,13 @@
-import 'package:categorylogin/Login/presentation/pages/sign_up_view_model_simple_dialog.dart';
+import 'package:categorylogin/sign_up/data/repository/SignUpRepository.dart';
+import 'package:categorylogin/sign_up/presentation/widget/sign_up_view_model_simple_dialog.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/repository/auth_repository.dart';
+import '../../../Login/data/repository/LogInRepository.dart';
 
 class SignUpViewModel extends ChangeNotifier {
-  SignUpViewModel({required AuthRepository authRepo}) : _authRepo = authRepo;
+  SignUpViewModel({required SignUpRepository authRepo}) : _authRepo = authRepo;
 
-  final AuthRepository _authRepo;
+  final  SignUpRepository _authRepo;
   final formKey = GlobalKey<FormState>();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();

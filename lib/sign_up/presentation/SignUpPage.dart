@@ -1,14 +1,14 @@
-import 'package:categorylogin/Login/data/repository/auth_repository.dart';
-import 'package:categorylogin/Login/presentation/pages/SignUpViewModel.dart';
-import 'package:categorylogin/Login/sign_up/date_picker.dart';
-import 'package:categorylogin/Login/sign_up/sign_up_page_dialog.dart';
-import 'package:categorylogin/Login/sign_up/sign_up_view.dart';
+import 'package:categorylogin/Login/data/repository/LogInRepository.dart';
+import 'package:categorylogin/sign_up/data/repository/SignUpRepository.dart';
+import 'package:categorylogin/sign_up/presentation/view/SignUpViewModel.dart';
 import 'package:categorylogin/core/client.dart';
+import 'package:categorylogin/sign_up/presentation/widget/SignUpTexFormField.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../main.dart';
+import '../../../main.dart';
+import 'widget/date_picker.dart';
 
 void main() {
   runApp(SignUp());
@@ -23,7 +23,7 @@ class SignUp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SignUpPage(
         vm: SignUpViewModel(
-          authRepo: AuthRepository(
+          authRepo: SignUpRepository(
             client: ApiClient(),
           ),
         ),

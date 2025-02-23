@@ -24,6 +24,7 @@ class SignUpView extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
+            color: Colors.white,
             fontSize: 15,
             fontWeight: FontWeight.w500,
           ),

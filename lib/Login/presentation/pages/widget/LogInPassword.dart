@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class CategoryPageColumn extends StatelessWidget {
   const CategoryPageColumn({
     super.key,
-    required this.controller,
+    required this.controller, required this.hint, required this.title,
   });
+  final String hint, title;
 
   final TextEditingController controller;
 
@@ -16,7 +17,7 @@ class CategoryPageColumn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Password',
+          title,
           style: TextStyle(color: Colors.white),
         ),
         SizedBox(height: 15),
@@ -29,7 +30,7 @@ class CategoryPageColumn extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.pink,
-              hintText: "Password",
+              hintText: hint,
               hintStyle: TextStyle(
                   fontSize: 16,
                   color: AppColors.black.withValues(alpha: 0.45),

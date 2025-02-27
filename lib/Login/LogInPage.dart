@@ -1,7 +1,10 @@
 import 'package:categorylogin/Login/presentation/pages/view/login_view_model.dart';
+import 'package:categorylogin/core/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../Categories/ui_model.dart';
+import '../main.dart';
 import '../sign_up/presentation/SignUpPage.dart';
 import '../utils.dart';
 import 'presentation/pages/widget/LogInPassword.dart';
@@ -17,6 +20,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vam = context.watch<LocalizationViewModel>();
     return ListenableBuilder(
       listenable: vm,
       builder: (context, child) => Scaffold(
@@ -25,7 +29,7 @@ class CategoryPage extends StatelessWidget {
           backgroundColor: AppColors.bacround,
           title: Center(
             child: Text(
-              'Login',
+              MyLocalizations.of(context)!.login,
               style: TextStyle(
                 color: AppColors.redpinkmain,
                 fontSize: 20,
@@ -33,6 +37,38 @@ class CategoryPage extends StatelessWidget {
               ),
             ),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PopupMenuButton<String>(
+                icon: Icon(Icons.language, color: Colors.white, weight: 14),
+                onSelected: (String value) {
+                  final localeVM = context.read<LocalizationViewModel>();
+                  if (value == 'Oʻzbekcha') {
+                    localeVM.setLocale(Locale("uz"));
+                  } else if (value == 'English') {
+                    localeVM.setLocale(Locale("en"));
+                  } else if (value == 'Русский') {
+                    localeVM.setLocale(Locale("ru"));
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Oʻzbekcha',
+                    child: Text('Oʻzbekcha 🇺🇿'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'English',
+                    child: Text("English 🇺🇸"),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Русский',
+                    child: Text('Русский 🇷🇺'),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(25),
@@ -41,12 +77,14 @@ class CategoryPage extends StatelessWidget {
               Form(
                 key: vm.formKey,
                 child: CategoryPageSizedBox(
-                  hintText: "example@gmail.com",
+                  hintText: MyLocalizations.of(context)!.password,
+                  email: MyLocalizations.of(context)!.email,
                   validator: (value) => null,
                   controller: vm.loginController,
                 ),
               ),
-              CategoryPageColumn(controller: vm.passwordController),
+              SizedBox(height: 10),
+              CategoryPageColumn(controller: vm.passwordController, title: MyLocalizations.of(context)!.password, hint: "●●●●●●●●",),
               SizedBox(height: 90),
               if (vm.hasError)
                 Text(
@@ -73,7 +111,7 @@ class CategoryPage extends StatelessWidget {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content:
-                                    Text("Muvaffaqiyatli login qilindi!"),
+                                        Text(MyLocalizations.of(context)!.logintasdiq),
                                   ),
                                 );
                                 Navigator.pushReplacement(
@@ -82,7 +120,7 @@ class CategoryPage extends StatelessWidget {
                                       builder: (context) => Categories()),
                                 );
                               } else {
-                                vm.setError("Login yoki parol noto‘g‘ri!");
+                                vm.setError("MyLocalizations.of(context)!.loginerror");
                               }
                             }
                           },
@@ -91,8 +129,9 @@ class CategoryPage extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              "Log In",
+                              MyLocalizations.of(context)!.login,
                               style: TextStyle(
+                                fontSize: 20,
                                 color: AppColors.pink,
                               ),
                             ),
@@ -116,10 +155,14 @@ class CategoryPage extends StatelessWidget {
                         backgroundColor: AppColors.redpink,
                       ),
                       child: Center(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: AppColors.pink,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            MyLocalizations.of(context)!.signup,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.pink,
+                            ),
                           ),
                         ),
                       ),

@@ -7,29 +7,30 @@ import '../../../../utils.dart';
 import '../../data/repository/SignUpRepository.dart';
 import '../view/SignUpViewModel.dart';
 
-class DatePicker extends StatelessWidget {
-  const DatePicker({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DatePickerTextField(
-        title: "salom",
-        vm: SignUpViewModel(
-          authRepo: SignUpRepository(
-            client: ApiClient(),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class DatePicker extends StatelessWidget {
+//   const DatePicker({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: DatePickerTextField(
+//         title: "salom",
+//         vm: SignUpViewModel(
+//           authRepo: SignUpRepository(
+//             client: ApiClient(),
+//           ),
+//         ), text: '',
+//       ),
+//     );
+//   }
+// }
 
 class DatePickerTextField extends StatefulWidget {
   final String title;
+  final String text;
   final SignUpViewModel vm;
 
-  const DatePickerTextField({Key? key, required this.title, required this.vm})
+  const DatePickerTextField({Key? key, required this.title, required this.vm, required this.text})
       : super(key: key);
 
   @override
@@ -80,9 +81,9 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Date of birth",
-          style: TextStyle(color: Colors.white),
+        Text(
+          widget.text,
+          style: const TextStyle(color: Colors.white),
         ),
         TextFormField(
           controller: _dateController,

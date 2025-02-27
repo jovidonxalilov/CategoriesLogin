@@ -1,16 +1,19 @@
 import 'package:categorylogin/Categories/presentation/categories_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../core/client.dart';
+import '../core/l10n/app_localization.dart';
 import '../main.dart';
 import '../utils.dart';
 import 'data/repository/categories_repository.dart';
 
 
-// void main() {
-//   runApp(Categories());
-// }
+void main() {
+  runApp(Categories());
+}
 
 class Categories extends StatelessWidget {
   Categories({super.key});
@@ -30,14 +33,20 @@ class Categories extends StatelessWidget {
       onError: Colors.white,
       surface: AppColors.bacround,
       onSurface: AppColors.redpinkmain,
-      onBackground: Colors.white,
-
     ),
   );
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        MyLocalizations.delegate,
+      ],
+      supportedLocales: [Locale("uz"), Locale("en"), Locale("ru")],
+      locale: context.watch<LocalizationViewModel>().currentLocale,
       theme: darkTheme,
       debugShowCheckedModeBanner: false,
       home: CategoriesPage(
@@ -58,6 +67,7 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LocalizationViewModel>().currentLocale;
     return ListenableBuilder(
       listenable: vm,
       builder: (context, child) => Scaffold(
@@ -80,7 +90,7 @@ class CategoriesPage extends StatelessWidget {
           ),
           title: Center(
             child: Text(
-              'Categories',
+              MyLocalizations.of(context)!.category,
               style: TextStyle(
                 color: AppColors.redpinkmain,
                 fontSize: 20,
@@ -135,7 +145,7 @@ class CategoriesPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    vm.myCategory![9].title,
+                    vm.myCategory![7].title,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold),
@@ -144,7 +154,7 @@ class CategoriesPage extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(
-                      vm.myCategory![9].image,
+                      vm.myCategory![7].image,
                       width: double.infinity,
                       height: 148,
                       fit: BoxFit.cover,

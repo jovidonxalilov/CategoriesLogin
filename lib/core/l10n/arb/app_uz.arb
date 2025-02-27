@@ -1,0 +1,27 @@
+{
+  "hello": "Salom",
+  "category": "Turkumlar",
+  "login": "Kirish",
+  "loginerror": "Muvaffaqiyatli login qilindi!",
+  "logintasdiq": "Login yoki parol noto‘g‘ri!",
+  "signup": "Ro'yxatdan O'tish",
+  "firstName": "Ism",
+  "signmalumot": "Davom etib, siz rozi bo'lasiz\nFoydalanish shartlari va maxfiylik siyosati.",
+  "hisob": "Siz allaqachon hisobingiz bormi?",
+  "lastName": "Familya",
+  "username": "Ism Familya",
+  "sana": "Tug'ilgan Sana",
+  "email": "Elektron Pochta",
+  "phone": "Telefon Raqam",
+  "password": "Parol",
+  "trendingRecipe": "Trenddagi Ritsept {nimadur}",
+  "@trendingRecipe": {
+    "description": "Ism berilsa trenddagi ritsept deb chiqarib beradi",
+    "placeholders": {
+      "nimadur": {
+        "type": "String",
+        "example": "Bolta sho'rva"
+      }
+    }
+  }
+}

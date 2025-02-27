@@ -1,18 +1,19 @@
-import 'package:categorylogin/Login/data/repository/LogInRepository.dart';
+import 'package:categorylogin/core/client.dart';
 import 'package:categorylogin/sign_up/data/repository/SignUpRepository.dart';
 import 'package:categorylogin/sign_up/presentation/view/SignUpViewModel.dart';
-import 'package:categorylogin/core/client.dart';
 import 'package:categorylogin/sign_up/presentation/widget/SignUpTexFormField.dart';
 import 'package:categorylogin/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:provider/provider.dart';
 import '../../../main.dart';
+import '../../core/l10n/app_localization.dart';
 import 'widget/date_picker.dart';
 
-void main() {
-  runApp(SignUp());
-}
+// void main() {
+//   runApp(SignUp());
+// }
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -20,14 +21,21 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpPage(
-        vm: SignUpViewModel(
-          authRepo: SignUpRepository(
-            client: ApiClient(),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          MyLocalizations.delegate,
+        ],
+        supportedLocales: [Locale("uz"), Locale("en"), Locale("ru")],
+        locale: context.watch<LocalizationViewModel>().currentLocale,
+        home: SignUpPage(
+          vm: SignUpViewModel(
+            authRepo: SignUpRepository(
+              client: ApiClient(),
+            ),
           ),
         ),
-      ),
     );
   }
 }
@@ -42,6 +50,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LocalizationViewModel>().currentLocale;
     return Scaffold(
       backgroundColor: AppColors.bacround,
       appBar: AppBar(
@@ -64,9 +73,11 @@ class SignUpPage extends StatelessWidget {
             },
           ),
         ),
-        title: Text(
-          "Sign Up",
-          style: TextStyle(color: AppColors.pink, fontSize: 22),
+        title: Center(
+          child: Text(
+            MyLocalizations.of(context)!.signup,
+            style: TextStyle(color: AppColors.pink, fontSize: 22),
+          ),
         ),
       ),
       body: ListView(
@@ -78,41 +89,46 @@ class SignUpPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SignUpView(
-                  title: "First Name",
+                  title: MyLocalizations.of(context)!.firstName,
                   hintText: "Jovidon Xalilov",
                   validator: (value) => null,
                   controller: vm.firstNameController,
                 ),
                 SizedBox(height: 10),
                 SignUpView(
-                  title: "Last Name",
+                  title: MyLocalizations.of(context)!.lastName,
                   hintText: "Xalilov",
                   validator: (value) => null,
                   controller: vm.lastNameController,
                 ),
                 SignUpView(
-                  title: "UserName",
+                  title: MyLocalizations.of(context)!.username,
                   hintText: "jovidon777",
                   validator: (value) => null,
                   controller: vm.userNameController,
                 ),
                 SizedBox(height: 10),
                 SignUpView(
-                  title: "Email",
+                  title: MyLocalizations.of(context)!.email,
                   hintText: "xalilovjovidon777@gmail.com",
                   validator: (value) => null,
                   controller: vm.emailController,
                 ),
                 SizedBox(height: 10),
-                SignUpView(title: "Phone Number",
+                SignUpView(
+                  title: MyLocalizations.of(context)!.phone,
                   hintText: "+998337276008",
                   validator: (value) => null,
-                  controller: vm.numberController,),
+                  controller: vm.numberController,
+                ),
                 SizedBox(height: 10),
-                DatePickerTextField(title: "sana", vm: vm),
+                DatePickerTextField(
+                    text: MyLocalizations.of(context)!.sana,
+                    title: "sana",
+                    vm: vm),
                 SizedBox(height: 10),
                 SignUpView(
-                  title: "Password",
+                  title: MyLocalizations.of(context)!.password,
                   hintText: "●●●●●●●●",
                   validator: (value) => null,
                   controller: vm.passwordController,
@@ -120,10 +136,11 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 10),
                 SignUpView(
                   controller: vm.confirmPasswordController,
-                  title: "Password",
+                  title: MyLocalizations.of(context)!.password,
                   hintText: "●●●●●●●●",
                   validator: (value) {
-                    if (vm.passwordController.text != vm.confirmPasswordController.text) {
+                    if (vm.passwordController.text !=
+                        vm.confirmPasswordController.text) {
                       return "Passwords do not match!";
                     }
                     return null;
@@ -131,7 +148,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 SizedBox(height: 25),
                 Text(
-                  "By continuing, you agree to\nTerms of Use and Privacy Policy.",
+                  MyLocalizations.of(context)!.signmalumot,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -145,13 +162,18 @@ class SignUpPage extends StatelessWidget {
                     onPressed: () async {
                       vm.signUp(context);
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.redpinkmain),
-                    child: const Center(
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.redpinkmain),
+                    child:  Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          MyLocalizations.of(context)!.signup,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
@@ -163,14 +185,14 @@ class SignUpPage extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "Already have an account? ",
+                        MyLocalizations.of(context)!.hisob,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 8,
                         ),
                       ),
                       Text(
-                        " Log In",
+                        MyLocalizations.of(context)!.signup,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 8,

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class CategoryPageSizedBox extends StatelessWidget {
   const CategoryPageSizedBox({
-    super.key, required this.hintText, required this.validator, required this.controller,
+    super.key, required this.hintText, required this.validator, required this.controller, required this.email,
   });
 
-  final String hintText;
+  final String hintText, email;
   final String? Function(String? value) validator;
   final TextEditingController controller;
 
@@ -17,7 +17,7 @@ class CategoryPageSizedBox extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Email',
+          email,
           style: TextStyle(color: Colors.white),
         ),
         SizedBox(height: 15),
@@ -31,7 +31,7 @@ class CategoryPageSizedBox extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.pink,
-              hintText: "example@gmail.com ",
+              hintText: hintText,
               hintStyle: TextStyle(
                   fontSize: 16,
                   color: AppColors.black.withValues(alpha: 0.45),

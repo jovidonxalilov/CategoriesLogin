@@ -14,7 +14,7 @@ class CategoriesViewModel extends ChangeNotifier {
 
   Future load() async {
     print("nimadir");
-    myCategory = await _repo.fetchCategories();
+    myCategory = await _repo.fetchMyCategory();
     print(myCategory.toString());
     notifyListeners();
   }

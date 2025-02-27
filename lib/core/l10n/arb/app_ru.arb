@@ -1,0 +1,21 @@
+{
+  "hello": "Salom",
+  "signup": "Sign Up",
+  "firstName": "Ism",
+  "lastName": "Familya",
+  "username": "Ism Familya",
+  "sana": "Tug'ilgan Sana",
+  "email": "Elektron Pochta",
+  "phone": "Telefon Raqam",
+  "password": "Parol",
+  "trendingRecipe": "Trenddagi Ritsept {nimadur}",
+  "@trendingRecipe": {
+    "description": "Ism berilsa trenddagi ritsept deb chiqarib beradi",
+    "placeholders": {
+      "nimadur": {
+        "type": "String",
+        "example": "Bolta sho'rva"
+      }
+    }
+  }
+}

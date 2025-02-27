@@ -1,12 +1,12 @@
 import 'dart:io';
-
-import 'package:categorylogin/sign_up/data/model/SignUpModel.dart';
 import 'package:dio/dio.dart';
-
+import '../recipe_app/sign_up/data/model/SignUpModel.dart';
 import 'secure_storsge.dart';
 
 class ApiClient {
-  final Dio dio = Dio(BaseOptions(baseUrl: "http://10.10.2.180:8888/api/v1"));
+  final Dio dio = Dio(BaseOptions(
+    baseUrl: "http://192.168.11.184:8888/api/v1",
+  ));
 
   Future<String?> login(String login, String password) async {
     var response = await dio.post(
@@ -47,9 +47,9 @@ class ApiClient {
     }
   }
 
-  Future<Response> fetchCategories() async {
+  Future<Response> fetchMyAuthCategory() async {
     String? token = await SecureStorage.getToken();
-    if (token == null) return fetchCategories();
+    if (token == null) return fetchMyAuthCategory();
 
     try {
       return await dio.get(
@@ -58,9 +58,19 @@ class ApiClient {
       );
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
-        return fetchCategories();
+        return fetchMyAuthCategory();
       }
       throw e;
+    }
+  }
+
+  Future<List<dynamic>> fetchCategories() async {
+    var response = await dio.get('/categories/list');
+    if (response.statusCode == 200) {
+      List<dynamic> data = response.data;
+      return data;
+    } else {
+      throw Exception("/categories/list so'rovimiz o'xshamadi!");
     }
   }
 
@@ -84,13 +94,33 @@ class ApiClient {
       return false;
     }
   }
-// Future<List<dynamic>> fetchCategories() async {
-//   var response = await dio.get('/admin/categories/list');
-//   if (response.statusCode == 200) {
-//     List<dynamic> data = response.data;
-//     return data;
-//   }else{
-//     throw Exception("Malumot yoq");
-//   }
-// }
+
+  Future<List<dynamic>> fetchRecipesCategory(int categoryId) async {
+    var response = await dio.get('/recipes/list?Category=$categoryId');
+    if (response.statusCode == 200) {
+      return response.data as List<dynamic>;
+    } else {
+      throw Exception(
+          "/recipes/list?Category=$categoryId So'rovimiz o'xshamadi");
+    }
+  }
+
+  Future<dynamic> fetchRecipeById(int recipeId) async {
+    var response = await dio.get('/recipes/detail/$recipeId');
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('/recipes/detail/$recipeId malumot kelmadi');
+    }
+  }
+
+  // Future<List<dynamic>> fetchCategories() async {
+  //   var response = await dio.get('/admin/categories/list');
+  //   if (response.statusCode == 200) {
+  //     List<dynamic> data = response.data;
+  //     return data;
+  //   } else {
+  //     throw Exception("Malumot yoq");
+  //   }
+  // }
 }

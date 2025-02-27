@@ -1,0 +1,28 @@
+{
+  "hello": "Hello",
+  "category": "Turkumlar",
+  "login": "Log In",
+  "loginerror": "Successfully logged!",
+  "logintasdiq": "Wrong login or password!",
+  "signup": "Sign Up",
+  "signmalumot": "By continuing, you agree to\nTerms of Use and Privacy Policy.",
+  "hisob": "Already have an account?",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "username": "Full Name",
+  "sana": "Date Of Birth",
+  "email": "Email",
+  "phone": "Mobile Number",
+  "password": "Password",
+  "trendingRecipe": "Trending Recipe {nimadur}",
+  "@trendingRecipe": {
+    "description": "Ism berilsa trenddagi ritsept deb chiqarib beradi",
+    "placeholders": {
+      "nimadur": {
+        "type": "String",
+        "example": "Bolta sho'rva"
+      }
+    }
+  }
+
+}

@@ -1,0 +1,50 @@
+import 'package:flutter/cupertino.dart';
+
+import '../../../categories/data/models/category_model.dart';
+import '../../../categories/data/repository/categories_repository.dart';
+import '../../data/model/recipe_model.dart';
+import '../../data/repository/category_detail_repository.dart';
+
+class CategoryDetailViewModel with ChangeNotifier{
+  CategoryDetailViewModel({
+    required CategoryRepository catRepo,
+    required CategoryDetailRepository recipeRepo,
+    required CategoryModelId selected,
+  })  : _catRepo = catRepo,
+         _recipeRepo = recipeRepo,
+         _selected = selected;
+
+  final CategoryRepository _catRepo;
+  final CategoryDetailRepository _recipeRepo;
+
+  List<CategoryModelId> categories = [];
+  List<RecipeModel> recipes = [];
+  bool right = true;
+  bool isLoading = true;
+  late CategoryModelId _selected;
+  CategoryModelId get selected => _selected;
+  set selected(CategoryModelId model) {
+    if (categories.indexOf(_selected) < categories.indexOf(model)) {
+      right = true;
+    } else {
+      right = false;
+    }
+    notifyListeners();
+
+    _selected = model;
+    notifyListeners();
+    fetchRecipesByCategory(_selected.id);
+  }
+  Future<void> fetchRecipesByCategory(int categoryId) async {
+    recipes = await _recipeRepo.fetchRecipesCategory(categoryId);
+    notifyListeners();
+  }
+  Future<void> load() async {
+    isLoading = true;
+    notifyListeners();
+    categories = await _catRepo.fetchCategories();
+    recipes = await _recipeRepo.fetchRecipesCategory(selected.id);
+    isLoading = false;
+    notifyListeners();
+  }
+}

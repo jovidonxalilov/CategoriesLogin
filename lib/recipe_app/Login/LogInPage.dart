@@ -1,9 +1,11 @@
+import 'package:categorylogin/recipe_app/Login/presentation/login_view.dart';
 import 'package:categorylogin/recipe_app/Login/presentation/pages/widget/LogInPassword.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/l10n/app_localization.dart';
 import '../../core/utils.dart';
+import '../../main.dart';
+import '../sign_up/local.dart';
 import '../sign_up/presentation/SignUpPage.dart';
 
 import 'presentation/pages/view/login_view_model.dart';
@@ -12,13 +14,13 @@ import 'presentation/pages/widget/LogInEmail.dart';
 class CategoryPage extends StatelessWidget {
   const CategoryPage({
     super.key,
-    required this.vm,
   });
 
-  final LoginViewModel vm;
+
 
   @override
   Widget build(BuildContext context) {
+    final vm = context.watch<LoginViewModel>();
     // final vam = context.watch<LocalizationViewModel>();
     return ListenableBuilder(
       listenable: vm,
@@ -36,38 +38,38 @@ class CategoryPage extends StatelessWidget {
               ),
             ),
           ),
-          // actions: [
-          //   Padding(
-          //     // padding: const EdgeInsets.all(8.0),
-          //     // child: PopupMenuButton<String>(
-          //     //   icon: Icon(Icons.language, color: Colors.white, weight: 14),
-          //     //   onSelected: (String value) {
-          //       //   // final localeVM = context.read<LocalizationViewModel>();
-          //       //   if (value == 'Oʻzbekcha') {
-          //       //     localeVM.setLocale(Locale("uz"));
-          //       //   } else if (value == 'English') {
-          //       //     localeVM.setLocale(Locale("en"));
-          //       //   } else if (value == 'Русский') {
-          //       //     localeVM.setLocale(Locale("ru"));
-          //       //   }
-          //       // },
-          //       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          //         PopupMenuItem<String>(
-          //           value: 'Oʻzbekcha',
-          //           child: Text('Oʻzbekcha 🇺🇿'),
-          //         ),
-          //         PopupMenuItem<String>(
-          //           value: 'English',
-          //           child: Text("English 🇺🇸"),
-          //         ),
-          //         PopupMenuItem<String>(
-          //           value: 'Русский',
-          //           child: Text('Русский 🇷🇺'),
-          //         ),
-          //       ],
-          //     ),
-          //   )
-          // ],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PopupMenuButton<String>(
+                icon: Icon(Icons.language, color: Colors.white, weight: 14),
+                onSelected: (String value) {
+                  final localeVM = context.read<LocalizationViewModel>();
+                  if (value == 'Oʻzbekcha') {
+                    localeVM.setLocale(Locale("uz"));
+                  } else if (value == 'English') {
+                    localeVM.setLocale(Locale("en"));
+                  } else if (value == 'Русский') {
+                    localeVM.setLocale(Locale("ru"));
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Oʻzbekcha',
+                    child: Text('Oʻzbekcha 🇺🇿'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'English',
+                    child: Text("English 🇺🇸"),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Русский',
+                    child: Text('Русский 🇷🇺'),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(25),
@@ -116,7 +118,7 @@ class CategoryPage extends StatelessWidget {
                                 // Navigator.pushReplacement(
                                 //   context,
                                 //   MaterialPageRoute(
-                                //       builder: (context) => CategoriesView(vm: ,)),
+                                //       builder: (context) => CategoriesView(vm: vm,)),
                                 // );
                               } else {
                                 vm.setError("MyLocalizations.of(context)!.loginerror");

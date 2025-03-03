@@ -37,7 +37,7 @@ class SignUpViewModelSimpleDialog extends StatelessWidget {
               ),
               child: Center(
                 child: SvgPicture.asset(
-                  "asset/person.svg",
+                  "assets/person.svg",
                   width: 30,
                   height: 45,
                   fit: BoxFit.cover,

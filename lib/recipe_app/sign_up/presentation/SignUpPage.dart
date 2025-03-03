@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../../core/l10n/app_localization.dart';
 import '../../../main.dart';
+import '../../Login/presentation/login_view.dart';
 import '../data/repository/SignUpRepository.dart';
 import 'widget/date_picker.dart';
 
@@ -21,6 +22,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -28,7 +30,7 @@ class SignUp extends StatelessWidget {
           MyLocalizations.delegate,
         ],
         supportedLocales: [Locale("uz"), Locale("en"), Locale("ru")],
-        // locale: context.watch<LocalizationViewModel>().currentLocale,
+        locale: context.watch<LocalizationViewModel>().currentLocale,
         home: SignUpPage(
           vm: SignUpViewModel(
             authRepo: SignUpRepository(
@@ -50,7 +52,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.watch<LocalizationViewModel>().currentLocale;
+    context.watch<LocalizationViewModel>().currentLocale;
     return Scaffold(
       backgroundColor: AppColors.bacround,
       appBar: AppBar(
@@ -58,18 +60,18 @@ class SignUpPage extends StatelessWidget {
         leading: Center(
           child: IconButton(
             icon: SvgPicture.asset(
-              'asset/back.svg',
+              'assets/back.svg',
               width: 30,
               height: 20,
               fit: BoxFit.cover,
             ),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => LoginView(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginView(),
+                ),
+              );
             },
           ),
         ),

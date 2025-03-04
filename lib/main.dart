@@ -37,6 +37,7 @@
 // //
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 
@@ -58,11 +59,14 @@ class RecipeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      builder: (context, child) => MaterialApp.router(
-        routerConfig: router,
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        // darkTheme: AppThemes.darkTheme,
+      builder: (context, child) => ScreenUtilInit(
+        designSize: Size(430, 932),
+        child: MaterialApp.router(
+          routerConfig: router,
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.dark,
+          // darkTheme: AppThemes.darkTheme,
+        ),
       ),
     );
   }

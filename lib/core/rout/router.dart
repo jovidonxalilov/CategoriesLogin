@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../recipe_app/Login/LogInPage.dart';
 import '../../recipe_app/Login/presentation/login_view.dart';
-import '../../recipe_app/Login/presentation/pages/view/login_view_model.dart';
+import '../../recipe_app/Login/presentation/view/login_view_model.dart';
 import '../../recipe_app/categories/data/models/category_model.dart';
 import '../../recipe_app/categories/presentation/page/category_view.dart';
 import '../../recipe_app/categories/presentation/view_model/categories_view_model.dart';
@@ -14,7 +14,7 @@ import '../../recipe_app/recipe_detail/precentation/page/recipe_detail.dart';
 import '../../recipe_app/recipe_detail/precentation/view/recipe_detail_view_model.dart';
 
 final router = GoRouter(
-  initialLocation: '/login-detail',
+  initialLocation: '/recipe-detail/1',
   routes: [
     GoRoute(
       path: Routes.categories,

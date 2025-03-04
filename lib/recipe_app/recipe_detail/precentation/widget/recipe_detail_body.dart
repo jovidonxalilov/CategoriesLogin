@@ -1,5 +1,7 @@
 import 'package:categorylogin/recipe_app/recipe_detail/precentation/widget/recipe_detail_instructions.dart';
 import 'package:categorylogin/core/utils.dart';
+import 'package:categorylogin/recipe_app/recipe_detail/precentation/widget/recipe_detail_video.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -86,8 +88,18 @@ class RecipeDetailBody extends StatelessWidget {
                           color: AppColors.redpinkmain,
                           borderRadius: BorderRadius.circular(50)),
                       child: Center(
-                        child: SvgPicture.asset(
-                          "assets/pauze.svg",
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => RecipeDetailVideo(
+                                    videoUrl: vm.recipe.videoRecipe),
+                              ),
+                            );
+                          },
+                          child: SvgPicture.asset(
+                            "assets/pauze.svg",
+                          ),
                         ),
                       ),
                     ),
@@ -238,7 +250,6 @@ class RecipeDetailBody extends StatelessWidget {
                           ),
                           Text(
                             "${e.amount}",
-                            // Backenddan kelayotgan order
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),

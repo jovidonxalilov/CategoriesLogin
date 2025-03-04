@@ -1,15 +1,13 @@
 import 'package:categorylogin/recipe_app/Login/presentation/login_view.dart';
-import 'package:categorylogin/recipe_app/Login/presentation/pages/widget/LogInPassword.dart';
+import 'package:categorylogin/recipe_app/Login/presentation/view/login_view_model.dart';
+import 'package:categorylogin/recipe_app/Login/presentation/widget/LogInEmail.dart';
+import 'package:categorylogin/recipe_app/Login/presentation/widget/LogInPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/l10n/app_localization.dart';
 import '../../core/utils.dart';
-import '../../main.dart';
-import '../sign_up/local.dart';
 import '../sign_up/presentation/SignUpPage.dart';
 
-import 'presentation/pages/view/login_view_model.dart';
-import 'presentation/pages/widget/LogInEmail.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({

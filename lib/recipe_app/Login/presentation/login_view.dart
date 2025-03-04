@@ -59,9 +59,9 @@ class LoginView extends StatelessWidget {
           MyLocalizations.delegate,
         ],
         supportedLocales: [Locale("uz"), Locale("en"), Locale("ru")],
-        locale: context.watch<LocalizationViewModel>().currentLocale, // To‘g‘ri getter orqali foydalanish
+        locale: context.watch<LocalizationViewModel>().currentLocale,
         debugShowCheckedModeBanner: false,
-        home: CategoryPage(), // Kategoriya sahifasi borligiga ishonch hosil qiling
+        home: CategoryPage(),
       ),
     );
   }

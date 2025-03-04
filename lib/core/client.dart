@@ -5,7 +5,7 @@ import 'secure_storsge.dart';
 
 class ApiClient {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.11.184:8888/api/v1",
+    baseUrl: "http://192.168.8.71:8888/api/v1",
   ));
 
   Future<String?> login(String login, String password) async {
@@ -61,6 +61,15 @@ class ApiClient {
         return fetchMyAuthCategory();
       }
       throw e;
+    }
+  }
+  Future<List< dynamic>> fetchTrendingRecipe() async{
+    var response = await dio.get('/recipes/trending-recipe');
+    if (response.statusCode == 200) {
+      List<dynamic> data = response.data;
+      return data;
+    } else {
+      throw Exception("Malumot kelmadi....");
     }
   }
 

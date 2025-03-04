@@ -9,8 +9,8 @@ class CategoriesViewModel extends ChangeNotifier {
 
   final CategoryRepository _catRepo;
 
-  List<CategoryModelId> categories = [];
-  CategoryModelId? mainCategory;
+  List<CategoryModel> categories = [];
+  CategoryModel? mainCategory;
 
   Future<void> load() async {
     final allCategories = await _catRepo.fetchCategories();

@@ -10,7 +10,7 @@ class CategoryItem extends StatelessWidget {
     required this.category,
   });
 
-  final CategoryModelId category;
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {

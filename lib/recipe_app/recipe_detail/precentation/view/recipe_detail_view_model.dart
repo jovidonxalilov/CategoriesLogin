@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../category_detail/data/repository/category_detail_repository.dart';
 import '../../data/model/detail_model.dart';
-import '../../data/repository/detail_repository.dart';
-
 class RecipeDetailViewModel extends ChangeNotifier {
   RecipeDetailViewModel({
     required CategoryDetailRepository recipeRepo,

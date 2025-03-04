@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../../categories/data/models/category_model.dart';
 import '../../../categories/data/repository/categories_repository.dart';
-import '../../data/model/recipe_model.dart';
-import '../../data/repository/category_detail_repository.dart';
+import '../../../category_detail/data/model/recipe_model.dart';
+import '../../../category_detail/data/repository/category_detail_repository.dart';
 
-class CategoryDetailViewModel with ChangeNotifier{
-  CategoryDetailViewModel({
+
+class HomePageViewModel with ChangeNotifier{
+  HomePageViewModel({
     required CategoryRepository catRepo,
     required CategoryDetailRepository recipeRepo,
     required CategoryModel selected,
   })  : _catRepo = catRepo,
-         _recipeRepo = recipeRepo,
-         _selected = selected;
+        _recipeRepo = recipeRepo,
+        _selected = selected;
 
   final CategoryRepository _catRepo;
   final CategoryDetailRepository _recipeRepo;
 
-  List<CategoryModel> categories = [];
+  List<CategoryModel?> categories = [];
   List<RecipeModel> recipes = [];
   bool right = true;
   bool isLoading = true;

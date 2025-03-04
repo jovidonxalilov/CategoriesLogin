@@ -7,12 +7,12 @@ class CategoryRepository {
   CategoryRepository({required this.client});
 
   final ApiClient client;
-  List<CategoryModelId> categories = [];
+  List<CategoryModel> categories = [];
 
-  Future<List<CategoryModelId>> fetchCategories() async {
+  Future<List<CategoryModel>> fetchCategories() async {
     final rawCategories = await client.fetchCategories();
     categories = rawCategories
-        .map((category) => CategoryModelId.fromJson(category))
+        .map((category) => CategoryModel.fromJson(category))
         .toList();
     return categories;
   }

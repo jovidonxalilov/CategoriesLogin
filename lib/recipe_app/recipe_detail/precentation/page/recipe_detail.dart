@@ -13,79 +13,85 @@ class RecipeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<RecipeDetailViewModel>();
-    return ListenableBuilder(
-      listenable: vm,
-      builder: (context, child) => Scaffold(
-        backgroundColor: AppColors.bacround,
-        appBar: AppBar(
+    if (vm.isLoading) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return ListenableBuilder(
+        listenable: vm,
+        builder: (context, child) => Scaffold(
           backgroundColor: AppColors.bacround,
-          toolbarHeight: 50,
-          leading: Center(
-            child: SvgPicture.asset(
-              "assets/back.svg",
-              width: 20,
-              height: 20,
-            ),
-          ),
-          title: Center(
-            child: Text(
-              vm.recipe.title,
-              style: TextStyle(
-                color: AppColors.redpinkmain,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
+          appBar: AppBar(
+            backgroundColor: AppColors.bacround,
+            toolbarHeight: 50,
+            leading: Center(
+              child: SvgPicture.asset(
+                "assets/back.svg",
+                width: 20,
+                height: 20,
               ),
             ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.redpink,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        "assets/notifaction.svg",
-                        width: 22,
-                        height: 22,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.redpink,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        "assets/search.svg",
-                        width: 22,
-                        height: 22,
-                      ),
-                    ),
-                  ),
-                ],
+            title: Center(
+              child: Text(
+                vm.recipe.title,
+                style: TextStyle(
+                  color: AppColors.redpinkmain,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            )
-          ],
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: AppColors.redpink,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          "assets/notifaction.svg",
+                          width: 22,
+                          height: 22,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: AppColors.redpink,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          "assets/search.svg",
+                          width: 22,
+                          height: 22,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          body: RecipeDetailBody(vm: vm),
+          // bottomNavigationBar:  Text("data")
+          bottomNavigationBar: SizedBox(
+            width: double.infinity,
+            height: 100,
+            child: RecipeBottomNavigationBar(),
+          ),
         ),
-        body: RecipeDetailBody(vm: vm),
-        // bottomNavigationBar:  Text("data")
-        bottomNavigationBar: SizedBox(
-          width: double.infinity,
-          height: 100,
-          child: RecipeBottomNavigationBar(),
-        ),
-      ),
-    );
+      );
+    }
   }
 }

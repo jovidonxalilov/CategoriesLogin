@@ -21,7 +21,7 @@ class RecipeAppBarBottom extends StatelessWidget implements PreferredSizeWidget 
             RecipeAppBarBottomItem(
               title: category.title,
               callback: () => vm.selected = category,
-              isSelected: category.id == vm.selected!.id,
+              isSelected: category.id == vm.selected.id,
             ),
         ],
       ),

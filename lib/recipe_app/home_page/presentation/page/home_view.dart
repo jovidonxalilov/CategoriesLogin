@@ -26,6 +26,7 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = context.watch<HomePageViewModel>();
     return Scaffold(
       backgroundColor: AppColors.bacround,
       appBar: AppBar(
@@ -74,137 +75,46 @@ class HomePageView extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 30, left: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Trending Recipe",
-                  style: TextStyle(
-                    color: AppColors.redpinkmain,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 120),
-                      child: Container(
-                        width: 330,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: AppColors.bacround,
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: AppColors.redpinkmain,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 13,
-                                left: 8,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Salami and cheese pizza",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  SizedBox(height: 1),
-                                  Text(
-                                    "This is a quick overview of the ingredients...",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 70),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13, right: 8),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "30min",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Image.asset(
-                      "assets/rasm.png",
-                      width: double.infinity,
-                      height: 143,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: Container(
+            height: 60,
+            padding: EdgeInsets.symmetric(vertical: 10),
+            color: AppColors.bacround, // Orqa fon rangi
+            // child: ListView.builder(
+            //   itemBuilder: (context, index) => Text(
+            //     vm.mainCategory!.title,
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            // ),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: vm.categories.length,
+              itemBuilder: (context, index) => Container(
+                margin: EdgeInsets.symmetric(horizontal: 8),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 5,
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            width: double.infinity,
-            height: 255,
-            decoration: BoxDecoration(
-              color: AppColors.redpinkmain  ,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 14, left: 25, right: 25, bottom: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Your recipes",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
+                child: Center(
+                  child: Text(
+                    vm.categories[index].title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/rasm2.png",
-                        width: 168,
-                        height: 175,
-                      ),
-                      Image.asset(
-                        "assets/rasm2.png",
-                        width: 168,
-                        height: 175,
-                      ),
-                    ],
-                  )
-                ],
+                ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

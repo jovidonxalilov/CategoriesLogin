@@ -5,7 +5,7 @@ import 'secure_storsge.dart';
 
 class ApiClient {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.8.71:8888/api/v1",
+    baseUrl: "http://192.168.8.216:8888/api/v1",
   ));
 
   Future<String?> login(String login, String password) async {
@@ -123,7 +123,26 @@ class ApiClient {
     }
   }
 
-  // Future<List<dynamic>> fetchCategories() async {
+  Future<List<dynamic>> fetchCommunity(int limit, String order, bool descending) async {
+
+    print("📡 API ga so'rov yuborildi: /recipes/community/list?Limit=$limit&Order=$order&Descending=$descending");
+
+    try {
+      var response = await dio.get('/recipes/community/list?Limit=$limit&Order=$order&Descending=$descending');
+
+      print("✅ API dan javob keldi: ${response.statusCode}");
+      print("📊 Qaytgan ma'lumot: ${response.data}");
+
+      List<dynamic> data = response.data;
+      return data;
+    } catch (e) {
+      print("❌ API XATO: $e");
+      return [];
+    }
+  }
+
+
+// Future<List<dynamic>> fetchCategories() async {
   //   var response = await dio.get('/admin/categories/list');
   //   if (response.statusCode == 200) {
   //     List<dynamic> data = response.data;

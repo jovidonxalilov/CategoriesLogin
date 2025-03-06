@@ -1,3 +1,4 @@
+import 'package:categorylogin/recipe_app/community/data/repository/community_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import '../recipe_app/categories/data/repository/categories_repository.dart';
@@ -13,5 +14,9 @@ final List<SingleChildWidget> providers = [
   ),
   Provider(
     create: (context) => CategoryDetailRepository(client: context.read()),
+  ),
+  Provider(
+    create: (context) => CommunityRepository(client: context.read(),
+    ),
   ),
 ];

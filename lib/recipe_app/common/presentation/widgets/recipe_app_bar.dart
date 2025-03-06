@@ -27,31 +27,29 @@ class RecipeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 36, vertical: 10),
-      child: AppBar(
-        toolbarHeight: toolbarHeight,
-        leading: Align(
-          alignment: Alignment.centerLeft,
-          child: RecipeIconButton(
-            image: "assets/icons/back-arrow.svg",
-            size: const Size(25, 17),
-            callback: () => context.pop(),
-          ),
+    return AppBar(
+      backgroundColor: AppColors.bacround,
+      toolbarHeight: toolbarHeight,
+      leading: Align(
+        alignment: Alignment.center,
+        child: RecipeIconButton(
+          image: "assets/icons/back-arrow.svg",
+          size: const Size(25, 17),
+          callback: () => context.pop(),
         ),
-        centerTitle: true,
-        title: Text(
-          title,
-          style: TextStyle(
-            color: AppColors.redpinkmain,
-            fontFamily: "Poppins",
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        actions: actions,
-        bottom: bottom,
       ),
+      centerTitle: true,
+      title: Text(
+        title,
+        style: TextStyle(
+          color: AppColors.redpinkmain,
+          fontFamily: "Poppins",
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      actions: actions,
+      bottom: bottom,
     );
   }
 }

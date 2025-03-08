@@ -1,5 +1,6 @@
 import 'package:categorylogin/recipe_app/home_page/presentation/view/home_page_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/utils.dart';
@@ -27,11 +28,14 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<HomePageViewModel>();
+    if (vm.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
       backgroundColor: AppColors.bacround,
       appBar: AppBar(
         backgroundColor: AppColors.bacround,
-        toolbarHeight: 70,
+        toolbarHeight: 70.h,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -39,17 +43,17 @@ class HomePageView extends StatelessWidget {
               "Hi! Diane",
               style: TextStyle(
                 color: AppColors.redpinkmain,
-                fontSize: 22,
+                fontSize: 22.h,
               ),
             ),
             SizedBox(
-              height: 2,
+              height: 2.h,
             ),
             Text(
               "What are you cooking today",
               style: TextStyle(
-                color: AppColors.redpinkmain,
-                fontSize: 15,
+                color: Colors.white,
+                fontSize: 15.h,
               ),
             ),
           ],
@@ -59,61 +63,203 @@ class HomePageView extends StatelessWidget {
             padding: const EdgeInsets.all(4.0),
             child: RecipeIconButtonContainer(
               image: "assets/icons/notification.svg",
-              iconWidth: 14,
-              iconHeight: 19,
+              iconWidth: 14.w,
+              iconHeight: 19.h,
               callback: () {},
             ),
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 5.w),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: RecipeIconButtonContainer(
               image: "assets/icons/search.svg",
-              iconWidth: 12,
-              iconHeight: 18,
+              iconWidth: 12.w,
+              iconHeight: 18.h,
               callback: () {},
             ),
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: Container(
-            height: 60,
-            padding: EdgeInsets.symmetric(vertical: 10),
-            color: AppColors.bacround, // Orqa fon rangi
-            // child: ListView.builder(
-            //   itemBuilder: (context, index) => Text(
-            //     vm.mainCategory!.title,
-            //     style: TextStyle(color: Colors.white),
-            //   ),
-            // ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: vm.categories.length,
-              itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 5,
+          preferredSize: Size.fromHeight(45),
+          child: _HomePageAppBarBottom(),
+        ),
+      ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 19, right: 30, left: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Trending Recipe",
+                  style: TextStyle(
+                    color: AppColors.redpinkmain,
+                    fontSize: 15.h,
+                  ),
+                ),
+                SizedBox(height: 9.h),
+                Stack(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 115, left: 4, right: 4),
+                      child: Container(
+                        width: double.infinity.w,
+                        height: 70.h,
+                        decoration: BoxDecoration(
+                          color: AppColors.bacround,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                              color: AppColors.redpinkmain, width: 2.w),
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 12, left: 15, right: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      vm.mainCategory!.title,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ),
+                                  SvgPicture.asset(
+                                    "assets/icons/clock.svg",
+                                    width: 12.w,
+                                    height: 12.h,
+                                    color: AppColors.pink,
+                                  ),
+                                  SizedBox(width: 4,),
+                                  Text(
+                                    "${vm.mainCategory!.timeRequired} min",
+                                    style: TextStyle(
+                                      color: AppColors.pink,
+                                      fontSize: 13,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      vm.mainCategory!.description,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 13,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Text(
+                                    vm.mainCategory!.rating.toString(),
+                                    style: TextStyle(
+                                      color: AppColors.pink,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                  SizedBox(width: 3),
+                                  SvgPicture.asset("assets/icons/clock.svg", width: 12.w, height: 12.h, color: AppColors.pink,),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.network(
+                        vm.mainCategory!.photo,
+                        width: double.infinity.w,
+                        height: 150.h,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            width: double.infinity,
+            height: 255,
+            decoration: BoxDecoration(
+              color: AppColors.redpinkmain,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Your recipes", style: TextStyle(color: Colors.white, fontSize: 13),),
+                Image.network(vm.recipeDetail!.photo, width: 100, height: 80,),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HomePageAppBarBottom extends StatefulWidget {
+  @override
+  State<_HomePageAppBarBottom> createState() => _HomePageAppBarBottomState();
+}
+
+class _HomePageAppBarBottomState extends State<_HomePageAppBarBottom> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = context.watch<HomePageViewModel>();
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: SizedBox(
+        height: 30,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: vm.categories.length,
+          separatorBuilder: (context, index) => SizedBox(width: 10),
+          itemBuilder: (context, index) {
+            bool isSelected = index == selectedIndex;
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              child: Container(
+                width: 100,
+                height: 25,
+                decoration: BoxDecoration(
+                  color:
+                      isSelected ? AppColors.redpinkmain : AppColors.bacround,
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
                   child: Text(
                     vm.categories[index].title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

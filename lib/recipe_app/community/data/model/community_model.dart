@@ -26,7 +26,7 @@ class CommunityModel {
         description: json['description'],
         photo: json['photo'],
         timeRequired: json['timeRequired'] ?? 0,
-        rating: json['rating'] ?? 0,
+        rating: (json['rating'] as num).toDouble(),
         reviewCount: json['reviewCount'] ?? 0,
         created: json['created'],
         user: CommunityUserModel.fromJson(json['user']),

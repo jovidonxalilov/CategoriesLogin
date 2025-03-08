@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:categorylogin/recipe_app/recipe_detail/precentation/widget/recipe_detail_instructions.dart';
 import 'package:categorylogin/core/utils.dart';
 import 'package:categorylogin/recipe_app/recipe_detail/precentation/widget/recipe_detail_video.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../view/recipe_detail_view_model.dart';
@@ -76,7 +78,14 @@ class RecipeDetailBody extends StatelessWidget {
                     width: 356,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(vm.recipe.photo),
+                      child: CachedNetworkImage(
+                        imageUrl: vm.recipe.photo,
+                        width: double.infinity.w,
+                        height: 358.h,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error, size: 50),
+                      ),
                     ),
                   ),
                   Padding(
@@ -93,7 +102,8 @@ class RecipeDetailBody extends StatelessWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => RecipeDetailVideo(
-                                    videoUrl: vm.recipe.videoRecipe),
+                                    videoUrl: vm.recipe.videoRecipe,
+                                ),
                               ),
                             );
                           },
@@ -145,12 +155,12 @@ class RecipeDetailBody extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 14,
                   ),
                   Row(
                     children: [
                       Container(
-                        width: 109,
+                        width: 90,
                         height: 21,
                         decoration: BoxDecoration(
                           color: AppColors.redpink,
@@ -161,7 +171,7 @@ class RecipeDetailBody extends StatelessWidget {
                             "Following",
                             style: TextStyle(
                               color: AppColors.redpinkmain,
-                              fontSize: 15,
+                              fontSize: 13,
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.w500,
                             ),

@@ -1,13 +1,12 @@
 class HomePageModel {
-  final int id, categoryid;
+  final int id, categoryId;
   final String title, description;
   final String photo;
-  final int timeRequired;
-  final num rating;
+  final num rating, timeRequired;
 
   HomePageModel({
     required this.id,
-    required this.categoryid,
+    required this.categoryId,
     required this.title,
     required this.description,
     required this.photo,
@@ -18,7 +17,7 @@ class HomePageModel {
   factory HomePageModel.fromJson(Map<String, dynamic> json) {
     return HomePageModel(
       id: json['id'],
-      categoryid: json['categoryId'],
+      categoryId: json['categoryId'],
       title: json['title'],
       description: json['description'],
       photo: json['photo'],

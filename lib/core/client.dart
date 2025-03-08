@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import '../recipe_app/home_page/data/model/home_page_model.dart';
 import '../recipe_app/sign_up/data/model/SignUpModel.dart';
 import 'secure_storsge.dart';
 
@@ -63,15 +64,24 @@ class ApiClient {
       throw e;
     }
   }
-  Future<List< dynamic>> fetchTrendingRecipe() async{
+  Future<List<HomePageModel>> fetchTrendingRecipe() async {
     var response = await dio.get('/recipes/trending-recipe');
+
     if (response.statusCode == 200) {
-      List<dynamic> data = response.data;
-      return data;
+      if (response.data is Map<String, dynamic>) {
+        var data = response.data;
+        print("✅ Backend Map qaytardi, uni List ichiga joylaymiz...");
+        return [HomePageModel.fromJson(data)]; // Map'ni List ichiga joyladik
+      } else if (response.data is List) {
+        return response.data.map((e) => HomePageModel.fromJson(e)).toList();
+      } else {
+        throw Exception("❌ Noto‘g‘ri ma'lumot formati keldi!");
+      }
     } else {
-      throw Exception("Malumot kelmadi....");
+      throw Exception("❌ Ma'lumot kelmadi....");
     }
   }
+
 
   Future<List<dynamic>> fetchCategories() async {
     var response = await dio.get('/categories/list');

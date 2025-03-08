@@ -19,7 +19,7 @@ import '../../recipe_app/recipe_detail/precentation/page/recipe_detail.dart';
 import '../../recipe_app/recipe_detail/precentation/view/recipe_detail_view_model.dart';
 
 final router = GoRouter(
-  initialLocation: Routes.community,
+  initialLocation: Routes.home,
   routes: [
     GoRoute(
       path: Routes.categories,
@@ -32,7 +32,9 @@ final router = GoRouter(
       builder: (context, state) => ChangeNotifierProvider(
         create: (context) {
           return HomePageViewModel(
+            recipeRepo: context.read(),
             catRepo: context.read(),
+            repo: context.read(),
           );
         },
         child: HomePageView(),
@@ -40,14 +42,19 @@ final router = GoRouter(
     ),
     GoRoute(
       path: Routes.recipeDetail,
-      builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => RecipeDetailViewModel(
-          recipeRepo: context.read(),
-          recipeId: int.parse(state.pathParameters['recipeId'] ?? '1'),
-        ),
-        child: RecipeDetailPage(),
-      ),
+      builder: (context, state) {
+        final recipeIdStr = state.pathParameters['recipeId'];
+        final recipeId = int.tryParse(recipeIdStr ?? '') ?? 1;
+        return ChangeNotifierProvider(
+          create: (context) => RecipeDetailViewModel(
+            recipeRepo: context.read(),
+            recipeId: recipeId,
+          ),
+          child: RecipeDetailPage(),
+        );
+      },
     ),
+
     GoRoute(
       path: Routes.login,
       builder: (context, state) => ChangeNotifierProvider(
@@ -76,7 +83,7 @@ final router = GoRouter(
       path: Routes.community,
       builder: (context, state) => ChangeNotifierProvider(
         create: (context) => CommunityViewModel(
-          communityRepo: context.read(), order: 'rating', descending: true, limit: 10,
+          communityRepo: context.read(), order: 'rating', descending: true, limit: 30,
         ),
         child: CommunityBody(),
       ),

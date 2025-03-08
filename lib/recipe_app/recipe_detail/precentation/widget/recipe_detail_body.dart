@@ -93,7 +93,8 @@ class RecipeDetailBody extends StatelessWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => RecipeDetailVideo(
-                                    videoUrl: vm.recipe.videoRecipe),
+                                    videoUrl: vm.recipe.videoRecipe,
+                                ),
                               ),
                             );
                           },
@@ -145,12 +146,12 @@ class RecipeDetailBody extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 14,
                   ),
                   Row(
                     children: [
                       Container(
-                        width: 109,
+                        width: 90,
                         height: 21,
                         decoration: BoxDecoration(
                           color: AppColors.redpink,
@@ -161,7 +162,7 @@ class RecipeDetailBody extends StatelessWidget {
                             "Following",
                             style: TextStyle(
                               color: AppColors.redpinkmain,
-                              fontSize: 15,
+                              fontSize: 13,
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.w500,
                             ),

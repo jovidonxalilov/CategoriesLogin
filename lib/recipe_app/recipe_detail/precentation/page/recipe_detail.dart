@@ -2,8 +2,10 @@ import 'package:categorylogin/recipe_app/recipe_detail/precentation/view/recipe_
 import 'package:categorylogin/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/rout/routes.dart';
 import '../../../common/presentation/widgets/recipe_bottom_navigation_bar.dart';
 import '../widget/recipe_detail_body.dart';
 
@@ -26,10 +28,15 @@ class RecipeDetailPage extends StatelessWidget {
             backgroundColor: AppColors.bacround,
             toolbarHeight: 50,
             leading: Center(
-              child: SvgPicture.asset(
-                "assets/back.svg",
-                width: 20,
-                height: 20,
+              child: GestureDetector(
+                onTap: () {
+                  context.go(Routes.community);
+                },
+                child: SvgPicture.asset(
+                  "assets/back.svg",
+                  width: 20,
+                  height: 20,
+                ),
               ),
             ),
             title: Center(

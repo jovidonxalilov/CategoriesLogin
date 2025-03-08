@@ -1,12 +1,12 @@
 class CommunityUserModel {
   final int id;
   final String profilePhoto;
-  final String userName, firstName, lastName;
+  final String username, firstName, lastName;
 
   CommunityUserModel({
     required this.id,
     required this.profilePhoto,
-    required this.userName,
+    required this.username,
     required this.firstName,
     required this.lastName,
   });
@@ -15,7 +15,7 @@ class CommunityUserModel {
     return CommunityUserModel(
       id: json['id'],
       profilePhoto: json['profilePhoto'],
-      userName: json['userName'].toString(),
+      username: json['username'],
       firstName: json['firstName'],
       lastName: json['lastName'],
     );

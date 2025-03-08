@@ -11,13 +11,15 @@ import '../../../common/presentation/widgets/recipe_icon_button_container.dart';
 class CommunityBody extends StatelessWidget {
   const CommunityBody({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<CommunityViewModel>();
-    if(vm.isLoading){
-      return Center(child: CircularProgressIndicator(),);
-    }return Scaffold(
+
+    if (vm.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return Scaffold(
       backgroundColor: AppColors.bacround,
       appBar: RecipeAppBar(
         title: "Community",
@@ -28,7 +30,7 @@ class CommunityBody extends StatelessWidget {
             iconWidth: 12,
             iconHeight: 18,
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           RecipeIconButtonContainer(
             image: "assets/search.svg",
             callback: () {},
@@ -37,19 +39,37 @@ class CommunityBody extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
+      body: vm.community.isEmpty
+          ? const Center(child: Text("Ma'lumot mavjud emas", style: TextStyle(color: Colors.white)))
+          : ListView.builder(
         itemCount: vm.community.length,
         itemBuilder: (context, index) {
+          final recipe = vm.community[index];
+
           return Column(
             children: [
-              Image.network(vm.community[index].photo, width: 100, height: 100,),
-              Center(child: Text(vm.community[index].description, style: TextStyle(color: Colors.white))),
+              Image.network(
+                recipe.photo ?? '',
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.broken_image, size: 100, color: Colors.grey);
+                },
+              ),
+              Center(
+                child: Text(
+                  recipe.description ?? "Tavsif mavjud emas",
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const Divider(color: Colors.white),
             ],
           );
         },
       ),
       bottomNavigationBar: CommunityBottomBar(),
     );
-
   }
 }

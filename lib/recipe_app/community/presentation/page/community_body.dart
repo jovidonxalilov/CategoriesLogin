@@ -42,8 +42,8 @@ class CommunityBody extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              Image.network(vm.community[index].photo, width: 100, height: 100,),
-              Center(child: Text(vm.community[index].description, style: TextStyle(color: Colors.white))),
+              Image.network(vm.community[2].photo, width: 100, height: 100,),
+              Center(child: Text(vm.community[4].description, style: TextStyle(color: Colors.white))),
             ],
           );
         },

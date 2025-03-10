@@ -24,26 +24,17 @@ class ApiClient {
   }
 
   Future<bool> signUp(SignUpModel model) async {
-    print("📤 Yuborilayotgan ma’lumot: ${model.toJson()}");
-
     try {
       var response = await dio.post(
         '/auth/register',
         data: model.toJson(),
       );
-
-      print("📥 Server javobi (status code): ${response.statusCode}");
-      print("📥 Server javobi (body): ${response.data}");
-
       if (response.statusCode == 201) {
-        print("✅ Ro‘yxatdan o‘tish muvaffaqiyatli!");
         return true;
       } else {
-        print("❌ Ro‘yxatdan o‘tishda xatolik!");
         return false;
       }
     } catch (e) {
-      print("❌ API so‘rovda xatolik: $e");
       return false;
     }
   }
@@ -51,7 +42,6 @@ class ApiClient {
   Future<Response> fetchMyAuthCategory() async {
     String? token = await SecureStorage.getToken();
     if (token == null) return fetchMyAuthCategory();
-
     try {
       return await dio.get(
         "/categories/list",
@@ -66,12 +56,10 @@ class ApiClient {
   }
   Future<List<HomePageModel>> fetchTrendingRecipe() async {
     var response = await dio.get('/recipes/trending-recipe');
-
     if (response.statusCode == 200) {
       if (response.data is Map<String, dynamic>) {
         var data = response.data;
-        print("✅ Backend Map qaytardi, uni List ichiga joylaymiz...");
-        return [HomePageModel.fromJson(data)]; // Map'ni List ichiga joyladik
+        return [HomePageModel.fromJson(data)];
       } else if (response.data is List) {
         return response.data.map((e) => HomePageModel.fromJson(e)).toList();
       } else {
@@ -134,19 +122,11 @@ class ApiClient {
   }
 
   Future<List<dynamic>> fetchCommunity(int limit, String order, bool descending) async {
-
-    print("📡 API ga so'rov yuborildi: /recipes/community/list?Limit=$limit&Order=$order&Descending=$descending");
-
     try {
       var response = await dio.get('/recipes/community/list?Limit=$limit&Order=$order&Descending=$descending');
-
-      print("✅ API dan javob keldi: ${response.statusCode}");
-      print("📊 Qaytgan ma'lumot: ${response.data}");
-
       List<dynamic> data = response.data;
       return data;
     } catch (e) {
-      print("❌ API XATO: $e");
       return [];
     }
   }

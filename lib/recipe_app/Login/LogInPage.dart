@@ -14,8 +14,6 @@ class CategoryPage extends StatelessWidget {
     super.key,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<LoginViewModel>();

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(GenderSelectionApp());
-// }
-
 class GenderSelectionScreen extends StatefulWidget {
   @override
   _GenderSelectionScreenState createState() => _GenderSelectionScreenState();
 }
 
 class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
-  String selectedGender = "Select Gender"; // Tanlangan gender uchun o'zgaruvchi
+  String selectedGender = "Select Gender";
 
   void _showGenderBottomSheet() {
     showModalBottomSheet(

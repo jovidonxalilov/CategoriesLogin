@@ -18,8 +18,6 @@ class ProfileViewModel extends ChangeNotifier {
     _gender = value;
     notifyListeners();
   }
-
-  // 📸 **Galereyadan rasm tanlash funksiyasi**
   Future<void> pickProfilePhoto() async {
     final ImagePicker picker = ImagePicker();
     final XFile? photo = await picker.pickImage(source: ImageSource.gallery);
@@ -30,9 +28,8 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  // ✅ **Profilni to‘ldirish (User ID olish + Rasm yuklash)**
   Future<bool> completeProfile() async {
-    int? userId = await getUserId(); // 🔹 **User ID olish**
+    int? userId = await getUserId();
     if (userId == null) {
       print("❌ Xatolik: User ID topilmadi!");
       return false;
@@ -45,7 +42,6 @@ class ProfileViewModel extends ChangeNotifier {
     return true;
   }
 
-  // 🔹 **SharedPreferences dan User ID olish**
   Future<int?> getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? userId = prefs.getInt("12");

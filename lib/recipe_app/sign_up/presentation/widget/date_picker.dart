@@ -2,25 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/utils.dart';
 import '../view/SignUpViewModel.dart';
-
-// class DatePicker extends StatelessWidget {
-//   const DatePicker({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: DatePickerTextField(
-//         title: "salom",
-//         vm: SignUpViewModel(
-//           authRepo: SignUpRepository(
-//             client: ApiClient(),
-//           ),
-//         ), text: '',
-//       ),
-//     );
-//   }
-// }
-
 class DatePickerTextField extends StatefulWidget {
   final String title;
   final String text;

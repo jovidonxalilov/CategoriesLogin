@@ -11,8 +11,8 @@ class CategoryDetailViewModel with ChangeNotifier{
     required CategoryDetailRepository recipeRepo,
     required CategoryModel selected,
   })  : _catRepo = catRepo,
-         _recipeRepo = recipeRepo,
-         _selected = selected;
+        _recipeRepo = recipeRepo,
+        _selected = selected;
 
   final CategoryRepository _catRepo;
   final CategoryDetailRepository _recipeRepo;

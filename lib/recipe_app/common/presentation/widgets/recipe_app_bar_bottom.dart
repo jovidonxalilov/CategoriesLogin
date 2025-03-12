@@ -7,7 +7,7 @@ class RecipeAppBarBottom extends StatelessWidget implements PreferredSizeWidget 
   const RecipeAppBarBottom({super.key});
 
   @override
-  Size get preferredSize => const Size(double.infinity, 60);
+  Size get preferredSize => const Size(double.infinity, 50);
 
   @override
   Widget build(BuildContext context) {

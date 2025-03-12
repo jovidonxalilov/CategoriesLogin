@@ -25,7 +25,6 @@ class HomePageViewModel extends ChangeNotifier {
   final CategoryDetailRepository _recipeRepo;
 
   List<RecipeModel> detail = [];
-
   List<HomePageModel> recipes = [];
   List<CategoryModel> categories = [];
   HomePageModel? mainCategory;
@@ -63,12 +62,28 @@ class HomePageViewModel extends ChangeNotifier {
     notifyListeners();
 
     _selected = model;
+
     notifyListeners();
-    fetchRecipesByCaategory(_selected.id);
+    fetchRecipesByCategory(_selected.id);
   }
-  Future<void> fetchRecipesByCaategory(int categoryId) async {
-    recipes = (await _recipeRepo.fetchRecipesCategory(categoryId)).cast<HomePageModel>();
+  Future<void> fetchRecipesByCategory(int categoryId) async {
+    try {
+      recipeDetail = null;
+      notifyListeners();
+      final fetchedRecipes = await _recipeRepo.fetchRecipesCategory(categoryId);
+      if (fetchedRecipes.isNotEmpty) {
+        detail = fetchedRecipes.cast<RecipeModel>();
+      } else {
+        detail = [];
+        recipeDetail = null;
+      }
+    } catch (e) {
+      debugPrint("Error fetching recipes: $e");
+      recipeDetail = null;
+    }
     notifyListeners();
   }
+
+
 
 }

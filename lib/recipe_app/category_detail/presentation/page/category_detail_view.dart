@@ -1,3 +1,4 @@
+import 'package:categorylogin/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ class CategoryDetailView extends StatelessWidget {
       );
     } else {
       return Scaffold(
+        backgroundColor: AppColors.bacround,
         extendBody: true,
         appBar: RecipeAppBar(
           title: vm.selected.title,

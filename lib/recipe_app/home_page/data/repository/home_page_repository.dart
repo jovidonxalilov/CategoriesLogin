@@ -10,8 +10,7 @@ class HomePageRepository {
 
   Future<List<HomePageModel>> fetchTrendingRecipe() async {
     final rawCategories = await client.fetchTrendingRecipe();
-    categories = rawCategories
-        .toList();
+    categories = rawCategories;
     return categories;
   }
 }

@@ -2,7 +2,11 @@ import 'dart:developer';
 import 'package:categorylogin/core/rout/routes.dart';
 import 'package:categorylogin/recipe_app/categories/data/repository/categories_repository.dart';
 import 'package:categorylogin/recipe_app/categories/data/state/categories_cubit.dart';
+import 'package:categorylogin/recipe_app/category_reviews/presentation/page/create_reviews_view.dart';
 import 'package:categorylogin/recipe_app/category_reviews/presentation/page/reviews_detail.dart';
+import 'package:categorylogin/recipe_app/category_reviews/presentation/view/create_reviews_bloc.dart';
+import 'package:categorylogin/recipe_app/category_reviews/presentation/view/reviews_bloc.dart';
+import 'package:categorylogin/recipe_app/category_reviews/presentation/view/reviews_view_model.dart';
 import 'package:categorylogin/recipe_app/community/presentation/page/community_body.dart';
 import 'package:categorylogin/recipe_app/community/presentation/view/community_view_model.dart';
 import 'package:categorylogin/recipe_app/home_page/presentation/page/home_view.dart';
@@ -45,6 +49,7 @@ final router = GoRouter(
             recipeRepo: context.read(),
             catRepo: context.read(),
             repo: context.read(),
+            chefs: context.read(),
           );
         },
         child: HomePageView(),
@@ -102,7 +107,23 @@ final router = GoRouter(
     ),
     GoRoute(
       path: Routes.reviews,
-      builder: (context, state) => CategoriesReviews(),
+      builder: (context, state) => CreateReviewsView(),
+    ),
+    GoRoute(
+      path: Routes.reView,
+      builder: (context, state) => BlocProvider(
+          create: (context) => ReviewsBloc(
+                recipeRepo: context.read(),
+                recipeId: int.parse(state.pathParameters['recipeId']!),
+              ),
+          child: ReviewsDetail()),
+    ),
+    GoRoute(
+      path: Routes.createReview,
+      builder: (context, state) => BlocProvider(
+        create: (context) => CreateReviewBloc(),
+        child: ReviewsDetail(),
+      ),
     )
   ],
 );

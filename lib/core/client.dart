@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:categorylogin/recipe_app/category_reviews/data/model/reviews_model.dart';
 import 'package:dio/dio.dart';
 import '../recipe_app/home_page/data/model/home_page_model.dart';
 import '../recipe_app/sign_up/data/model/SignUpModel.dart';
@@ -6,9 +7,22 @@ import 'secure_storsge.dart';
 
 class ApiClient {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.9.58:8888/api/v1",
+    baseUrl: "http://192.168.10.2:8888/api/v1",
   ));
 
+  Future<Map<String, dynamic>> fetchRecipeReviews(int recipeId) async {
+    var response = await dio.get('/recipes/reviews/detail/$recipeId');
+    if (response.statusCode == 200){
+      return Map<String, dynamic>.from(response.data);
+    } else{
+      throw Exception("recipes/reviews/detail/$recipeId so'rovimiz xato ketti!");
+    }
+  }
+  Future<List<dynamic>>fetchReviewsComment(int recipeId)async{
+    var response=await dio.get('/reviews/list?recipe=$recipeId');
+    print(' malumot ${response.data}');
+    return response.statusCode==200?response.data:Exception("Ma'lumot kelmadi");
+  }
   Future<String?> login(String login, String password) async {
     var response = await dio.post(
       '/auth/login',
@@ -130,15 +144,13 @@ class ApiClient {
       return [];
     }
   }
+  Future<List<dynamic>> fetchRecipeTopChefs() async {
+    var response = await dio.get('/auth/top-chefs');
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('/auth/top-chefs malumot kelmadi');
+    }
+  }
 
-
-// Future<List<dynamic>> fetchCategories() async {
-  //   var response = await dio.get('/admin/categories/list');
-  //   if (response.statusCode == 200) {
-  //     List<dynamic> data = response.data;
-  //     return data;
-  //   } else {
-  //     throw Exception("Malumot yoq");
-  //   }
-  // }
 }

@@ -7,4 +7,7 @@ class Routes{
   static const String community = '/community';
   static const String state = '/state';
   static const String reviews = '/reviews';
+  static const String createReviews = '/createReviews';
+  static const String reView='/reviews/:recipeId';
+  static const String createReview='/create-reviews/:recipeId';
 }

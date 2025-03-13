@@ -1,12 +1,34 @@
 import 'package:categorylogin/core/utils.dart';
-import 'package:categorylogin/recipe_app/category_reviews/presentation/page/categories_reviews_star.dart';
+import 'package:categorylogin/recipe_app/category_reviews/presentation/widget/categories_reviews_star.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../data/model/reviews_comment_model.dart';
 
 class CategoriesReviewsComments extends StatelessWidget {
   const CategoriesReviewsComments({
     super.key,
+    required this.comment
   });
+  final ReviewsCommentsModel comment;
+  String timeAgo(String isoDate) {
+    DateTime createdDate = DateTime.parse(isoDate);
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(createdDate);
+
+    if (difference.inDays >= 30) {
+      int monthsAgo = (difference.inDays / 30).floor();
+      return "$monthsAgo month${monthsAgo > 1 ? 's' : ''} ago";
+    } else if (difference.inDays > 0) {
+      return "${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago";
+    } else if (difference.inHours > 0) {
+      return "${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago";
+    } else if (difference.inMinutes > 0) {
+      return "${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''} ago";
+    } else {
+      return "Just now";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +37,23 @@ class CategoriesReviewsComments extends StatelessWidget {
       children: [
         SizedBox(
           height: 17.h,
-        ),
+        ), 
         Row(
           children: [
-            Image.asset(
-              "assets/Ellipse.png",
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                comment.user.profilePhoto,
+                width: 35.w,
+                height: 35.h,
+              ),
             ),
             SizedBox(
               width: 13.w,
             ),
             Expanded(
               child: Text(
-                "@r_joshua",
+                comment.user.username,
                 style: TextStyle(
                   color: AppColors.redpinkmain,
                   fontSize: 15,
@@ -34,7 +61,7 @@ class CategoriesReviewsComments extends StatelessWidget {
               ),
             ),
             Text(
-              "(15 mins ago)",
+              timeAgo(comment.created.toString()),
               style: TextStyle(
                 color: AppColors.redpinkmain,
                 fontSize: 15,
@@ -46,9 +73,7 @@ class CategoriesReviewsComments extends StatelessWidget {
           height: 13.h,
         ),
         Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          "Praesent fringilla eleifend purus vel dignissim. Praesent"
-          "urna ante, iaculis at lobortis eu.",
+          comment.comment,
           style: TextStyle(
             color: Colors.white,
             fontSize: 13.5,

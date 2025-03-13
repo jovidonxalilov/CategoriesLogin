@@ -1,5 +1,9 @@
 import 'package:categorylogin/recipe_app/category_detail/presentation/view/categoy_view_model.dart';
+import 'package:categorylogin/recipe_app/common/presentation/widgets/recipe_bottom_navigation_bar.dart';
+import 'package:categorylogin/recipe_app/community/presentation/widget/community_bottom_bar.dart';
 import 'package:categorylogin/recipe_app/home_page/presentation/view/home_page_view_model.dart';
+import 'package:categorylogin/recipe_app/home_page/presentation/widget/recently_added.dart';
+import 'package:categorylogin/recipe_app/home_page/presentation/widget/your_recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -138,7 +142,9 @@ class HomePageView extends StatelessWidget {
                                     height: 12.h,
                                     color: AppColors.pink,
                                   ),
-                                  SizedBox(width: 4,),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
                                   Text(
                                     "${vm.mainCategory!.timeRequired} min",
                                     style: TextStyle(
@@ -169,7 +175,12 @@ class HomePageView extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(width: 3),
-                                  SvgPicture.asset("assets/icons/clock.svg", width: 12.w, height: 12.h, color: AppColors.pink,),
+                                  SvgPicture.asset(
+                                    "assets/icons/clock.svg",
+                                    width: 12.w,
+                                    height: 12.h,
+                                    color: AppColors.pink,
+                                  ),
                                 ],
                               ),
                             ],
@@ -199,16 +210,107 @@ class HomePageView extends StatelessWidget {
               color: AppColors.redpinkmain,
               borderRadius: BorderRadius.circular(20),
             ),
+            child: Padding(
+              padding: EdgeInsets.only(top: 15, left: 38),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Your recipes",
+                    style: TextStyle(color: Colors.white, fontSize: 13),
+                  ),
+                  SizedBox(
+                    height: 11.h,
+                  ),
+                  Row(
+                    children: [
+                      YourRecipes(
+                        id: 1,
+                      ),
+                      SizedBox(
+                        width: 17.w,
+                      ),
+                      YourRecipes(
+                        id: 2,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 19, left: 36, right: 36),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Your recipes", style: TextStyle(color: Colors.white, fontSize: 13),),
-                Image.network(vm.recipeDetail!.photo, width: 100, height: 80,),
+                Text(
+                  "Top Chef",
+                  style: TextStyle(
+                    color: AppColors.redpinkmain,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                SizedBox(
+                  height: 100.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: vm.chefs.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(6.77),
+                            child: Image.network(
+                              vm.chefs[index].photo,
+                              width: 82.w,
+                              height: 74.h,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          Text(
+                            vm.chefs[index].firstName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 19.h,
+                ),
+                Text(
+                  "Recently Added",
+                  style: TextStyle(
+                    color: AppColors.redpinkmain,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(height: 8.h,),
+                Row(
+                  children: [
+                    RecentlyAdded(id: 1),
+                    SizedBox(width: 10.w,),
+                    RecentlyAdded(id: 2),
+                  ],
+                )
               ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: CommunityBottomBar(),
     );
   }
 }

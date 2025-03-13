@@ -18,7 +18,7 @@ class CommunityBottomBar extends StatelessWidget {
           height: 80,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.transparent],
+              colors: [AppColors.bacround, Colors.transparent],
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
             ),

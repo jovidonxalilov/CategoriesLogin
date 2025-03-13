@@ -22,7 +22,7 @@ import '../../recipe_app/recipe_detail/precentation/page/recipe_detail.dart';
 import '../../recipe_app/recipe_detail/precentation/view/recipe_detail_view_model.dart';
 
 final router = GoRouter(
-  initialLocation: Routes.reviews,
+  initialLocation: Routes.home,
   routes: [
     GoRoute(
       path: Routes.state,
@@ -45,6 +45,7 @@ final router = GoRouter(
             recipeRepo: context.read(),
             catRepo: context.read(),
             repo: context.read(),
+            chefs: context.read(),
           );
         },
         child: HomePageView(),
@@ -102,7 +103,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: Routes.reviews,
-      builder: (context, state) => CategoriesReviews(),
-    )
+      builder: (context, state) =>  CategoriesReviews(),
+    ),
   ],
 );

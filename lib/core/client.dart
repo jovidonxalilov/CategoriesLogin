@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:categorylogin/recipe_app/category_reviews/data/model/reviews_model.dart';
+import 'package:categorylogin/recipe_app/create_reviews/data/model/create_reviews_model.dart';
 import 'package:dio/dio.dart';
 import '../recipe_app/home_page/data/model/home_page_model.dart';
 import '../recipe_app/sign_up/data/model/SignUpModel.dart';
@@ -7,9 +8,34 @@ import 'secure_storsge.dart';
 
 class ApiClient {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.10.2:8888/api/v1",
+    baseUrl: "http://192.168.10.170:8888/api/v1",
   ));
-
+  Future<T> genericGetRequest<T>(String path, {Map<String, dynamic> ? queryParams}) async {
+    var  response = await dio.get(path, queryParameters: queryParams);
+    if (response.statusCode == 200) {
+      return response.data as T;
+    }  else {
+      throw DioException(requestOptions: response.requestOptions, response:  response);
+    }
+  }
+  Future<bool> createReviews(CreateReviewsModel model) async {
+    final formData = FormData.fromMap(await model.toJson());
+    final response = await dio.post(
+      '/reviews/create',
+      options: Options(
+        headers: {
+          "Authorization":
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5laWxAZ21haWwuY29tIiwianRpIjoiMThkNTJlMTEtOWZiYi00MGM4LWE0ODAtNmQzNGU4ODA0OTcyIiwidXNlcmlkIjoiOSIsImV4cCI6MTgzNzE1NjM0MCwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoiYXVkaWVuY2UifQ.HNOSyvjObJxIroFB9SLZO_VkJbFd-3hI1Nhh3qWk4-0",
+        }
+      ),
+      data: formData,
+    );
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   Future<Map<String, dynamic>> fetchRecipeReviews(int recipeId) async {
     var response = await dio.get('/recipes/reviews/detail/$recipeId');
     if (response.statusCode == 200){

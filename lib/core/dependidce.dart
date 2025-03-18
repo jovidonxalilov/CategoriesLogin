@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import '../recipe_app/categories/data/repository/categories_repository.dart';
 import '../recipe_app/category_detail/data/repository/category_detail_repository.dart';
+import '../recipe_app/create_reviews/data/repository/create_reviews_repository.dart';
 import 'client.dart';
 
 final List<SingleChildWidget> providers = [
@@ -37,5 +38,8 @@ final List<SingleChildWidget> providers = [
     create: (context) => ReviewsRepository(
       client: context.read(),
     ),
-  )
+  ),
+  Provider(create: (context) => CreateReviewsRepository(
+    client: context.read(),
+  ),)
 ];

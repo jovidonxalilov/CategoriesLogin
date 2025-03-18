@@ -1,3 +1,4 @@
+import 'package:categorylogin/core/rout/routes.dart';
 import 'package:categorylogin/core/utils.dart';
 import 'package:categorylogin/recipe_app/category_reviews/presentation/view/reviews_view_model.dart';
 import 'package:categorylogin/recipe_app/category_reviews/presentation/widget/categories_reviews_comments.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../data/model/reviews_comment_model.dart';
 import '../view/reviews_bloc.dart';
@@ -16,6 +18,7 @@ class ReviewsDetailBody extends StatelessWidget {
   const ReviewsDetailBody({
     super.key, required this.state,
   });
+
   final ReviewsState state;
 
   @override
@@ -121,22 +124,20 @@ class ReviewsDetailBody extends StatelessWidget {
                           )
                         ],
                       ),
-                      Container(
+                      SizedBox(
                         width: 126.w,
                         height: 24.h,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Add Review",
-                            style: TextStyle(
-                              color: AppColors.redpinkmain,
-                              fontSize: 15,
-                            ),
+                        child: ElevatedButton(onPressed: () {
+                          context.push(Routes.getCreateReview(
+                              state.recipeModel!.id),
+                          );
+                        }, child: Text(
+                          "Add Review",
+                          style: TextStyle(
+                            color: AppColors.redpinkmain,
+                            fontSize: 11,
                           ),
-                        ),
+                        ), ),
                       ),
                     ],
                   ),

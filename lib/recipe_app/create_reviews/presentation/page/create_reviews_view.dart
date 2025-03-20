@@ -97,7 +97,7 @@ class CreateReviewsView extends StatelessWidget {
           },
           child: Column(
             children: [
-              // const CreateReviewRecipeSection(),
+              const CreateReviewRecipeSection(),
               // SizedBox(height: 23.h),
               const CreateReviewRatingSection(),
               SizedBox(height: 30),

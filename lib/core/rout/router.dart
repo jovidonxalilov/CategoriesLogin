@@ -13,6 +13,8 @@ import 'package:categorylogin/recipe_app/home_page/presentation/page/home_view.d
 import 'package:categorylogin/recipe_app/home_page/presentation/view/home_page_view_model.dart';
 import 'package:categorylogin/recipe_app/misol/set_state.dart';
 import 'package:categorylogin/recipe_app/top_chef/presentation/page/top_chefs_detail.dart';
+import 'package:categorylogin/recipe_app/top_chef/presentation/page/top_chefs_profile_detail.dart';
+import 'package:categorylogin/recipe_app/trending_recipe/presentation/page/trending_recipe_detail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +26,15 @@ import '../../recipe_app/category_detail/presentation/page/category_detail_view.
 import '../../recipe_app/category_detail/presentation/view/categoy_view_model.dart';
 import '../../recipe_app/recipe_detail/precentation/page/recipe_detail.dart';
 import '../../recipe_app/recipe_detail/precentation/view/recipe_detail_view_model.dart';
+import '../../recipe_app/top_chef/presentation/view/top_chefs_bloc.dart';
 
 final router = GoRouter(
-  initialLocation: Routes.topChefs,
+  initialLocation: Routes.chefsProfile,
   routes: [
+    GoRoute(
+      path: Routes.chefsProfile,
+      builder: (context, state) => TopChefsProfileDetail(),
+    ),
     GoRoute(
       path: Routes.state,
       builder: (context, state) => Misol(),
@@ -107,16 +114,21 @@ final router = GoRouter(
     ),
     GoRoute(
       path: Routes.topChefs,
-      builder: (context, state) => TopChefsDetail(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => TopChefsBloc(
+          chefRepo: context.read(),
+        ),
+        child: TopChefsView(),
+      ),
     ),
     GoRoute(
       path: Routes.reView,
       builder: (context, state) => BlocProvider(
-          create: (context) => ReviewsBloc(
-                recipeRepo: context.read(),
-                recipeId: int.parse(state.pathParameters['recipeId']!),
-              ),
-          child: ReviewsDetail(),
+        create: (context) => ReviewsBloc(
+          recipeRepo: context.read(),
+          recipeId: int.parse(state.pathParameters['recipeId']!),
+        ),
+        child: ReviewsDetail(),
       ),
     ),
     GoRoute(
@@ -125,8 +137,23 @@ final router = GoRouter(
         create: (context) => CreateReviewBloc(
           recipeRepo: context.read(),
           reviewRepo: context.read(),
-        )..add(CreateReviewLoading(recipeId: int.parse(state.pathParameters['recipeId']!))),
+        )..add(CreateReviewLoading(
+            recipeId: int.parse(state.pathParameters['recipeId']!))),
         child: CreateReviewsView(),
+      ),
+    ),
+    GoRoute(
+      path: Routes.trendingRecipe,
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) {
+          return HomePageViewModel(
+            recipeRepo: context.read(),
+            catRepo: context.read(),
+            repo: context.read(),
+            chefs: context.read(),
+          );
+        },
+        child: TrendingRecipeDetail(),
       ),
     )
   ],

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/model/chef_model.dart';
 
+
 enum TopChefsStatus { idle, loading, success, error }
 
 class TopChefsState extends Equatable {
@@ -60,3 +61,4 @@ class TopChefsState extends Equatable {
     newChefsStatus,
   ];
 }
+

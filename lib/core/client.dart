@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:categorylogin/recipe_app/category_reviews/data/model/reviews_model.dart';
 import 'package:categorylogin/recipe_app/create_reviews/data/model/create_reviews_model.dart';
 import 'package:dio/dio.dart';
 import '../recipe_app/home_page/data/model/home_page_model.dart';
@@ -8,7 +7,7 @@ import 'secure_storsge.dart';
 
 class ApiClient {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.10.170:8888/api/v1",
+    baseUrl: "http://192.168.10.205:8888/api/v1",
   ));
   Future<T> genericGetRequest<T>(String path, {Map<String, dynamic> ? queryParams}) async {
     var  response = await dio.get(path, queryParameters: queryParams);
@@ -176,6 +175,14 @@ class ApiClient {
       return response.data;
     } else {
       throw Exception('/auth/top-chefs malumot kelmadi');
+    }
+  }
+  Future<List<dynamic>> fetchTopChefsForHome({int? limit}) async {
+    final response = await dio.get('/auth/top-chefs?Limit=${limit ?? ''}');
+    if (response.statusCode == 200) {
+      return response.data as List<dynamic>;
+    } else {
+      throw Exception("/auth/top-chefs?Limit=${limit ?? ''} so'rovimiz xato ketti");
     }
   }
 

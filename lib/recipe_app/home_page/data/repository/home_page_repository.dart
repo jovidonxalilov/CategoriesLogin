@@ -6,11 +6,12 @@ class HomePageRepository {
   HomePageRepository({required this.client});
 
   final ApiClient client;
-  List<HomePageModel> categories = [];
+  HomePageModel? categories;
 
-  Future<List<HomePageModel>> fetchTrendingRecipe() async {
+  Future<HomePageModel> fetchTrendingRecipe() async {
+    if (categories!=null) return categories!;
     final rawCategories = await client.fetchTrendingRecipe();
-    categories = rawCategories;
-    return categories;
+    categories = HomePageModel.fromJson(rawCategories);
+    return categories!;
   }
 }

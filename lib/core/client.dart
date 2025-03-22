@@ -7,7 +7,7 @@ import 'secure_storsge.dart';
 
 class ApiClient {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.10.205:8888/api/v1",
+    baseUrl: "http://192.168.10.249:8888/api/v1",
   ));
   Future<T> genericGetRequest<T>(String path, {Map<String, dynamic> ? queryParams}) async {
     var  response = await dio.get(path, queryParameters: queryParams);
@@ -93,19 +93,21 @@ class ApiClient {
       throw e;
     }
   }
-  Future<List<HomePageModel>> fetchTrendingRecipe() async {
+  Future<Map<String, dynamic>> fetchTrendingRecipe() async {
     var response = await dio.get('/recipes/trending-recipe');
+    if (response.statusCode == 200){
+      return Map<String, dynamic>.from(response.data);
+    } else{
+      throw Exception("/recipes/trending-recipe so'rovimiz xato ketti!");
+    }
+  }
+  Future<List<dynamic>> fetchTrendingRecipes() async {
+    var response = await dio.get('/recipes/trending-recipes');
     if (response.statusCode == 200) {
-      if (response.data is Map<String, dynamic>) {
-        var data = response.data;
-        return [HomePageModel.fromJson(data)];
-      } else if (response.data is List) {
-        return response.data.map((e) => HomePageModel.fromJson(e)).toList();
-      } else {
-        throw Exception("❌ Noto‘g‘ri ma'lumot formati keldi!");
-      }
+      List<dynamic> data = response.data;
+      return data;
     } else {
-      throw Exception("❌ Ma'lumot kelmadi....");
+      throw Exception("/recipes/trending-recipes so'rovimiz o'xshamadi!");
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:categorylogin/recipe_app/community/data/repository/community_rep
 import 'package:categorylogin/recipe_app/home_page/data/repository/home_page_repository.dart';
 import 'package:categorylogin/recipe_app/home_page/data/repository/recipe_top_chefs_repository.dart';
 import 'package:categorylogin/recipe_app/top_chef/data/repository/chef_repository.dart';
+import 'package:categorylogin/recipe_app/trending_recipe/data/repository/trending_recipes_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import '../recipe_app/categories/data/repository/categories_repository.dart';
@@ -50,4 +51,9 @@ final List<SingleChildWidget> providers = [
       client: context.read(),
     ),
   ),
+  Provider(
+    create: (context) => TrendingRecipesRepository(
+      client: context.read(),
+    ),
+  )
 ];

@@ -1,6 +1,5 @@
 import 'package:categorylogin/core/rout/routes.dart';
 import 'package:categorylogin/core/utils.dart';
-import 'package:categorylogin/recipe_app/category_reviews/presentation/view/reviews_view_model.dart';
 import 'package:categorylogin/recipe_app/category_reviews/presentation/widget/categories_reviews_comments.dart';
 import 'package:categorylogin/recipe_app/category_reviews/presentation/widget/categories_reviews_star.dart';
 import 'package:categorylogin/recipe_app/community/presentation/widget/community_bottom_bar.dart';

@@ -9,12 +9,17 @@ import 'package:categorylogin/recipe_app/create_reviews/presentation/view/create
 import 'package:categorylogin/recipe_app/category_reviews/presentation/view/reviews_bloc.dart';
 import 'package:categorylogin/recipe_app/community/presentation/page/community_body.dart';
 import 'package:categorylogin/recipe_app/community/presentation/view/community_view_model.dart';
+import 'package:categorylogin/recipe_app/home_page/data/repository/recipe_top_chefs_repository.dart';
 import 'package:categorylogin/recipe_app/home_page/presentation/page/home_view.dart';
 import 'package:categorylogin/recipe_app/home_page/presentation/view/home_page_view_model.dart';
 import 'package:categorylogin/recipe_app/misol/set_state.dart';
+import 'package:categorylogin/recipe_app/top_chef/data/repository/chef_repository.dart';
 import 'package:categorylogin/recipe_app/top_chef/presentation/page/top_chefs_detail.dart';
 import 'package:categorylogin/recipe_app/top_chef/presentation/page/top_chefs_profile_detail.dart';
+import 'package:categorylogin/recipe_app/top_chef/presentation/view/top_chefs_events.dart';
 import 'package:categorylogin/recipe_app/trending_recipe/presentation/page/trending_recipe_detail.dart';
+import 'package:categorylogin/recipe_app/trending_recipe/presentation/view/trending_recipes_bloc.dart';
+import 'package:categorylogin/recipe_app/trending_recipe/presentation/view/trending_resipec_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +32,10 @@ import '../../recipe_app/category_detail/presentation/view/categoy_view_model.da
 import '../../recipe_app/recipe_detail/precentation/page/recipe_detail.dart';
 import '../../recipe_app/recipe_detail/precentation/view/recipe_detail_view_model.dart';
 import '../../recipe_app/top_chef/presentation/view/top_chefs_bloc.dart';
+import '../../recipe_app/trending_recipe/data/repository/trending_recipes_repository.dart';
 
 final router = GoRouter(
-  initialLocation: Routes.chefsProfile,
+  initialLocation: Routes.topChefs,
   routes: [
     GoRoute(
       path: Routes.chefsProfile,
@@ -115,9 +121,11 @@ final router = GoRouter(
     GoRoute(
       path: Routes.topChefs,
       builder: (context, state) => BlocProvider(
-        create: (context) => TopChefsBloc(
-          chefRepo: context.read(),
-        ),
+        create: (context) {
+          print("TrendingRecipesBloc yaratildi!");
+          return TopChefsBloc(chefRepo: context.read<ChefRepository>())
+            ..add(TopChefsLoading());
+        },
         child: TopChefsView(),
       ),
     ),
@@ -144,17 +152,14 @@ final router = GoRouter(
     ),
     GoRoute(
       path: Routes.trendingRecipe,
-      builder: (context, state) => ChangeNotifierProvider(
+      builder: (context, state) => BlocProvider(
         create: (context) {
-          return HomePageViewModel(
-            recipeRepo: context.read(),
-            catRepo: context.read(),
-            repo: context.read(),
-            chefs: context.read(),
-          );
+          print("TrendingRecipesBloc yaratildi!");
+          return TrendingRecipesBloc(recipeRepo: context.read<TrendingRecipesRepository>())
+            ..add(TrendingRecipesLoading());
         },
         child: TrendingRecipeDetail(),
-      ),
+      )
     )
   ],
 );

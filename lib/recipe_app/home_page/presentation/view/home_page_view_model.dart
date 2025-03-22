@@ -58,10 +58,10 @@ class HomePageViewModel extends ChangeNotifier {
       final fetchedCategories = await _repo.fetchCategories();
       final fetchedTopChefs = await _chefs.fetchTopChefs();
 
-      if (fetchedRecipes.isNotEmpty) {
-        recipes = fetchedRecipes;
-        mainCategory = recipes.first;
-      }
+      // if (fetchedRecipes.isNotEmpty) {
+      //   recipes = fetchedRecipes;
+      //   mainCategory = recipes.first;
+      // }
       if (fetchedTopChefs.isNotEmpty) {
         chefs = fetchedTopChefs;
         recipeChefs = chefs.first;

@@ -3,11 +3,13 @@ import 'package:categorylogin/recipe_app/Login/presentation/view/login_view_mode
 import 'package:categorylogin/recipe_app/Login/presentation/widget/LogInEmail.dart';
 import 'package:categorylogin/recipe_app/Login/presentation/widget/LogInPassword.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../core/l10n/app_localization.dart';
+import '../../core/rout/routes.dart';
 import '../../core/utils.dart';
+import '../categories/presentation/page/category_view.dart';
 import '../sign_up/presentation/SignUpPage.dart';
-
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({
@@ -74,14 +76,18 @@ class CategoryPage extends StatelessWidget {
               Form(
                 key: vm.formKey,
                 child: CategoryPageSizedBox(
-                  hintText: MyLocalizations.of(context)!.password,
+                  hintText: MyLocalizations.of(context)!.email,
                   email: MyLocalizations.of(context)!.email,
                   validator: (value) => null,
                   controller: vm.loginController,
                 ),
               ),
               SizedBox(height: 10),
-              CategoryPageColumn(controller: vm.passwordController, title: MyLocalizations.of(context)!.password, hint: "●●●●●●●●",),
+              CategoryPageColumn(
+                controller: vm.passwordController,
+                title: MyLocalizations.of(context)!.password,
+                hint: "●●●●●●●●",
+              ),
               SizedBox(height: 90),
               if (vm.hasError)
                 Text(
@@ -107,17 +113,14 @@ class CategoryPage extends StatelessWidget {
                               if (isSuccess && context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content:
-                                        Text(MyLocalizations.of(context)!.logintasdiq),
+                                    content: Text(MyLocalizations.of(context)!
+                                        .logintasdiq),
                                   ),
                                 );
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => CategoriesView(vm: vm,)),
-                                // );
+                                context.push(Routes.categories);
                               } else {
-                                vm.setError("MyLocalizations.of(context)!.loginerror");
+                                vm.setError(
+                                    "MyLocalizations.of(context)!.loginerror");
                               }
                             }
                           },

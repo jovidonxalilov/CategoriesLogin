@@ -12,6 +12,7 @@ class HomePageModel {
     required this.photo,
     required this.timeRequired,
     required this.rating,
+    // required this.difficulty,
   });
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +24,7 @@ class HomePageModel {
       photo: json['photo'],
       timeRequired: json['timeRequired'],
       rating: json['rating'],
+      // difficulty: json['difficulty']
     );
   }
 }

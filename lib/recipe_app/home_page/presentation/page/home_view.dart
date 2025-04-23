@@ -109,7 +109,7 @@ class HomePageView extends StatelessWidget {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 115, left: 4, right: 4),
+                      const EdgeInsets.only(top: 115, left: 4, right: 4),
                       child: Container(
                         width: double.infinity.w,
                         height: 70.h,
@@ -121,7 +121,7 @@ class HomePageView extends StatelessWidget {
                         ),
                         child: Padding(
                           padding:
-                              EdgeInsets.only(top: 12, left: 15, right: 15),
+                          EdgeInsets.only(top: 12, left: 15, right: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -348,7 +348,7 @@ class _HomePageAppBarBottomState extends State<_HomePageAppBarBottom> {
                 height: 25,
                 decoration: BoxDecoration(
                   color:
-                      isSelected ? AppColors.redpinkmain : AppColors.bacround,
+                  isSelected ? AppColors.redpinkmain : AppColors.bacround,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:categorylogin/core/rout/routes.dart';
 import 'package:categorylogin/recipe_app/categories/data/repository/categories_repository.dart';
 import 'package:categorylogin/recipe_app/categories/data/state/categories_cubit.dart';
@@ -9,14 +10,16 @@ import 'package:categorylogin/recipe_app/create_reviews/presentation/view/create
 import 'package:categorylogin/recipe_app/category_reviews/presentation/view/reviews_bloc.dart';
 import 'package:categorylogin/recipe_app/community/presentation/page/community_body.dart';
 import 'package:categorylogin/recipe_app/community/presentation/view/community_view_model.dart';
-import 'package:categorylogin/recipe_app/home_page/data/repository/recipe_top_chefs_repository.dart';
 import 'package:categorylogin/recipe_app/home_page/presentation/page/home_view.dart';
 import 'package:categorylogin/recipe_app/home_page/presentation/view/home_page_view_model.dart';
 import 'package:categorylogin/recipe_app/misol/set_state.dart';
 import 'package:categorylogin/recipe_app/top_chef/data/repository/chef_repository.dart';
+import 'package:categorylogin/recipe_app/top_chef/data/repository/profile_repository.dart';
 import 'package:categorylogin/recipe_app/top_chef/presentation/page/top_chefs_detail.dart';
 import 'package:categorylogin/recipe_app/top_chef/presentation/page/top_chefs_profile_detail.dart';
-import 'package:categorylogin/recipe_app/top_chef/presentation/view/top_chefs_events.dart';
+import 'package:categorylogin/recipe_app/top_chef/presentation/view/top_chefs/top_chefs_events.dart';
+import 'package:categorylogin/recipe_app/top_chef/presentation/view/top_chefs_profile/top_chefs_profile_bloc.dart';
+import 'package:categorylogin/recipe_app/top_chef/presentation/view/top_chefs_profile/top_chefs_profile_event.dart';
 import 'package:categorylogin/recipe_app/trending_recipe/presentation/page/trending_recipe_detail.dart';
 import 'package:categorylogin/recipe_app/trending_recipe/presentation/view/trending_recipes_bloc.dart';
 import 'package:categorylogin/recipe_app/trending_recipe/presentation/view/trending_resipec_event.dart';
@@ -31,15 +34,23 @@ import '../../recipe_app/category_detail/presentation/page/category_detail_view.
 import '../../recipe_app/category_detail/presentation/view/categoy_view_model.dart';
 import '../../recipe_app/recipe_detail/precentation/page/recipe_detail.dart';
 import '../../recipe_app/recipe_detail/precentation/view/recipe_detail_view_model.dart';
-import '../../recipe_app/top_chef/presentation/view/top_chefs_bloc.dart';
+import '../../recipe_app/top_chef/presentation/view/top_chefs/top_chefs_bloc.dart';
 import '../../recipe_app/trending_recipe/data/repository/trending_recipes_repository.dart';
 
 final router = GoRouter(
-  initialLocation: Routes.topChefs,
+  initialLocation: Routes.chefsProfile,
   routes: [
     GoRoute(
       path: Routes.chefsProfile,
-      builder: (context, state) => TopChefsProfileDetail(),
+      builder: (context, state) => BlocProvider(
+        create: (context) {
+          print("TrendingRecipesBloc yaratildi!");
+          return TopChefsProfileBloc(
+              userRepo: context.read<ProfileRepository>())
+            ..add(TopChefsProfileLoading(id: 5));
+        },
+        child: TopChefsProfileDetail(),
+      ),
     ),
     GoRoute(
       path: Routes.state,
@@ -151,15 +162,15 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: Routes.trendingRecipe,
-      builder: (context, state) => BlocProvider(
-        create: (context) {
-          print("TrendingRecipesBloc yaratildi!");
-          return TrendingRecipesBloc(recipeRepo: context.read<TrendingRecipesRepository>())
-            ..add(TrendingRecipesLoading());
-        },
-        child: TrendingRecipeDetail(),
-      )
-    )
+        path: Routes.trendingRecipe,
+        builder: (context, state) => BlocProvider(
+              create: (context) {
+                print("TrendingRecipesBloc yaratildi!");
+                return TrendingRecipesBloc(
+                    recipeRepo: context.read<TrendingRecipesRepository>())
+                  ..add(TrendingRecipesLoading());
+              },
+              child: TrendingRecipeDetail(),
+            ))
   ],
 );

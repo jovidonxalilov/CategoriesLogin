@@ -21,7 +21,7 @@ class ChefRepository {
   Future<List<TopChefModel>> fetchMostViewedChefs() async {
     var rawMostViewedChefs = await client.genericGetRequest<List<dynamic>>(
       '/top-chefs/list',
-      queryParams: {"Order": "Date", "Limit": 2, "Descending": false},
+      queryParams: {"Order": "Views", "Limit": 2, "Descending": false, "Page": 1},
     );
     mostViewedChefs = rawMostViewedChefs.map((chef) => TopChefModel.fromJson(chef)).toList();
     return mostViewedChefs;
@@ -30,7 +30,7 @@ class ChefRepository {
   Future<List<TopChefModel>> fetchMostLikedChefs() async {
     var rawMostLikedChefs = await client.genericGetRequest<List<dynamic>>(
       '/top-chefs/list',
-      queryParams: {"Limit": 2},
+      queryParams: {"Order": "Likes", "Limit": 2, "Descending": false, "Page": 2},
     );
     mostLikedChefs = rawMostLikedChefs.map((chef) => TopChefModel.fromJson(chef)).toList();
     return mostLikedChefs;
@@ -39,7 +39,7 @@ class ChefRepository {
   Future<List<TopChefModel>> fetchNewChefs() async {
     var rawNewChefs = await client.genericGetRequest<List<dynamic>>(
       '/top-chefs/list',
-      queryParams: {"Order": "Date", "Limit": 2},
+      queryParams: {"Order": "Date", "Limit": 2, "Descending": false, "Page": 3},
     );
     newChefs = rawNewChefs.map((chef) => TopChefModel.fromJson(chef)).toList();
     return newChefs;

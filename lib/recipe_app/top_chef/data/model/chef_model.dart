@@ -14,7 +14,7 @@ class TopChefModel {
 
   factory TopChefModel.fromJson(Map<String, dynamic> json) {
     return TopChefModel(
-      profilePhoto: json['photo'],
+      profilePhoto: json['profilePhoto'],
       username: json['username'],
       lastName: json['lastName'],
       id: json['id'],

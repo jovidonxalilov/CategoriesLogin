@@ -29,7 +29,7 @@ class HomePageViewModel extends ChangeNotifier {
   final TopChefsRepository _chefs;
 
   List<RecipeModel> detail = [];
-  List<HomePageModel> recipes = [];
+  // List<HomePageModel> recipes = [];
   List<CategoryModel> categories = [];
   List<TopChefsModel> chefs = [];
   HomePageModel? mainCategory;
@@ -52,16 +52,18 @@ class HomePageViewModel extends ChangeNotifier {
   Future<void> load() async {
     isLoading = true;
     notifyListeners();
-
     try {
       final fetchedRecipes = await _catRepo.fetchTrendingRecipe();
       final fetchedCategories = await _repo.fetchCategories();
       final fetchedTopChefs = await _chefs.fetchTopChefs();
 
+      // // ✅ Asosiy kategoriya ma'lumotlarini to'g'ri ishlash
       // if (fetchedRecipes.isNotEmpty) {
-      //   recipes = fetchedRecipes;
-      //   mainCategory = recipes.first;
+      //   mainCategory = fetchedRecipes.first;
+      // } else {
+      //   throw Exception("fetchTrendingRecipe bo'sh ma'lumot qaytardi!");
       // }
+
       if (fetchedTopChefs.isNotEmpty) {
         chefs = fetchedTopChefs;
         recipeChefs = chefs.first;
@@ -74,7 +76,7 @@ class HomePageViewModel extends ChangeNotifier {
 
       if (categories.isNotEmpty) {
         final fetchedRecipesCategory =
-            await _recipeRepo.fetchRecipesCategory(categories.first.id);
+        await _recipeRepo.fetchRecipesCategory(categories.first.id);
         if (fetchedRecipesCategory.isNotEmpty) {
           detail = fetchedRecipesCategory;
           recipeDetail = detail.first;
@@ -87,6 +89,7 @@ class HomePageViewModel extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
 }
 
 /*

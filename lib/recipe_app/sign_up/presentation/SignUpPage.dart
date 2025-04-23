@@ -5,8 +5,10 @@ import 'package:categorylogin/recipe_app/sign_up/presentation/widget/SignUpTexFo
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../../core/l10n/app_localization.dart';
+import '../../../core/rout/routes.dart';
 import '../../../main.dart';
 import '../../Login/presentation/login_view.dart';
 import '../data/repository/SignUpRepository.dart';
@@ -66,12 +68,7 @@ class SignUpPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginView(),
-                ),
-              );
+             context.push(Routes.login);
             },
           ),
         ),

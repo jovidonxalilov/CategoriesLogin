@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/model/chef_model.dart';
+import '../../../data/model/chef_model.dart';
 
 
 enum TopChefsStatus { idle, loading, success, error }
 
 class TopChefsState extends Equatable {
+  final TopChefsStatus status;
   final List<TopChefModel> mostViewedChefs;
   final TopChefsStatus mostViewedChefsStatus;
   final List<TopChefModel> mostLikedChefs;
@@ -20,6 +21,7 @@ class TopChefsState extends Equatable {
     required this.mostViewedChefsStatus,
     required this.mostLikedChefsStatus,
     required this.newChefsStatus,
+    required this.status
   });
 
   factory TopChefsState.initial() {
@@ -30,6 +32,7 @@ class TopChefsState extends Equatable {
       mostViewedChefsStatus: TopChefsStatus.idle,
       mostLikedChefsStatus: TopChefsStatus.idle,
       newChefsStatus: TopChefsStatus.idle,
+      status: TopChefsStatus.loading,
     );
   }
 
@@ -40,6 +43,7 @@ class TopChefsState extends Equatable {
     TopChefsStatus? mostViewedChefsStatus,
     TopChefsStatus? mostLikedChefsStatus,
     TopChefsStatus? newChefsStatus,
+    TopChefsStatus? status,
   }) {
     return TopChefsState(
       mostViewedChefs: mostViewedChefs ?? this.mostViewedChefs,
@@ -48,6 +52,7 @@ class TopChefsState extends Equatable {
       mostLikedChefsStatus: mostLikedChefsStatus ?? this.mostLikedChefsStatus,
       newChefs: newChefs ?? this.newChefs,
       newChefsStatus: newChefsStatus ?? this.newChefsStatus,
+      status: status ?? this.status,
     );
   }
 

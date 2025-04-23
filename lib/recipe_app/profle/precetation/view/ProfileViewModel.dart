@@ -6,8 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/repository/ProfileRepository.dart';
 
 class ProfileViewModel extends ChangeNotifier {
-  ProfileViewModel({required ProfileRepository authRepo}) : _authRepo = authRepo;
-  final ProfileRepository _authRepo;
+  ProfileViewModel({required ProfileUploadRepository authRepo}) : _authRepo = authRepo;
+  final ProfileUploadRepository _authRepo;
 
   final bioController = TextEditingController();
   File? profilePhoto;

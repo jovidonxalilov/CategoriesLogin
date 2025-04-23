@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:categorylogin/core/client.dart';
 
-class ProfileRepository {
-  ProfileRepository({required this.client});
+class ProfileUploadRepository {
+  ProfileUploadRepository({required this.client});
   final ApiClient client;
   Future<bool> uploadProfilePhoto(File file, int userId) async {
     print("📤 Rasm yuklanmoqda... User ID: $userId");

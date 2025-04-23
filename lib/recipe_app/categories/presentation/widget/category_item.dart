@@ -17,6 +17,7 @@ class CategoryItem extends StatelessWidget {
     final categoryTitle = Text(
       category.title,
       style: TextStyle(
+        color: Colors.white,
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),

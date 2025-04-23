@@ -21,7 +21,7 @@ class Profile extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ProfilePage(
         vm: ProfileViewModel(
-          authRepo: ProfileRepository(
+          authRepo: ProfileUploadRepository(
             client: ApiClient(),
           ),
         ),
